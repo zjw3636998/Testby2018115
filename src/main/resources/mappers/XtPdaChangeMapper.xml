@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.XtPdaChangeMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.XtPdaChange" >
+    <id column="c_id" property="cId" jdbcType="VARCHAR" />
+    <result column="c_date" property="cDate" jdbcType="DATE" />
+    <result column="c_week" property="cWeek" jdbcType="INTEGER" />
+    <result column="c_man" property="cMan" jdbcType="VARCHAR" />
+    <result column="c_page" property="cPage" jdbcType="VARCHAR" />
+    <result column="c_old_num" property="cOldNum" jdbcType="VARCHAR" />
+    <result column="c_new_num" property="cNewNum" jdbcType="VARCHAR" />
+    <result column="c_sn" property="cSn" jdbcType="VARCHAR" />
+    <result column="c_it" property="cIt" jdbcType="VARCHAR" />
+    <result column="c_change_date" property="cChangeDate" jdbcType="DATE" />
+    <result column="c_result" property="cResult" jdbcType="VARCHAR" />
+    <result column="c_receive_man" property="cReceiveMan" jdbcType="VARCHAR" />
+    <result column="c_note" property="cNote" jdbcType="VARCHAR" />
+    <result column="c_create_time" property="cCreateTime" jdbcType="TIMESTAMP" />
+    <result column="c_type" property="cType" jdbcType="VARCHAR" />
+    <result column="c_state" property="cState" jdbcType="VARCHAR" />
+    <result column="u_num" property="uNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, c_date, c_week, c_man, c_page, c_old_num, c_new_num, c_sn, c_it, c_change_date, 
+    c_result, c_receive_man, c_note, c_create_time, c_type, c_state, u_num
+  </sql>
+   <select id="timeComparison" resultType="int">
+  	select count(*) 
+  	from xt_pda_change
+  	where c_state = '有效' and c_change_date > c_date and c_change_date between #{start} and #{end}
+  </select>
+  <select id="countFromMonth" resultType="int">
+  	select count(*) 
+  	from xt_pda_change
+  	where c_state = '有效' and c_change_date between #{start} and #{end}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xt_pda_change
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xt_pda_change
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.XtPdaChange" >
+    insert into xt_pda_change (c_id, c_date, c_week, 
+      c_man, c_page, c_old_num, 
+      c_new_num, c_sn, c_it, 
+      c_change_date, c_result, c_receive_man, 
+      c_note, c_create_time, c_type, 
+      c_state, u_num)
+    values (#{cId,jdbcType=VARCHAR}, #{cDate,jdbcType=DATE}, #{cWeek,jdbcType=INTEGER}, 
+      #{cMan,jdbcType=VARCHAR}, #{cPage,jdbcType=VARCHAR}, #{cOldNum,jdbcType=VARCHAR}, 
+      #{cNewNum,jdbcType=VARCHAR}, #{cSn,jdbcType=VARCHAR}, #{cIt,jdbcType=VARCHAR}, 
+      #{cChangeDate,jdbcType=DATE}, #{cResult,jdbcType=VARCHAR}, #{cReceiveMan,jdbcType=VARCHAR}, 
+      #{cNote,jdbcType=VARCHAR}, #{cCreateTime,jdbcType=TIMESTAMP}, #{cType,jdbcType=VARCHAR}, 
+      #{cState,jdbcType=VARCHAR}, #{uNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.XtPdaChange" >
+    insert into xt_pda_change
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="cDate != null" >
+        c_date,
+      </if>
+      <if test="cWeek != null" >
+        c_week,
+      </if>
+      <if test="cMan != null" >
+        c_man,
+      </if>
+      <if test="cPage != null" >
+        c_page,
+      </if>
+      <if test="cOldNum != null" >
+        c_old_num,
+      </if>
+      <if test="cNewNum != null" >
+        c_new_num,
+      </if>
+      <if test="cSn != null" >
+        c_sn,
+      </if>
+      <if test="cIt != null" >
+        c_it,
+      </if>
+      <if test="cChangeDate != null" >
+        c_change_date,
+      </if>
+      <if test="cResult != null" >
+        c_result,
+      </if>
+      <if test="cReceiveMan != null" >
+        c_receive_man,
+      </if>
+      <if test="cNote != null" >
+        c_note,
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time,
+      </if>
+      <if test="cType != null" >
+        c_type,
+      </if>
+      <if test="cState != null" >
+        c_state,
+      </if>
+      <if test="uNum != null" >
+        u_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=VARCHAR},
+      </if>
+      <if test="cDate != null" >
+        #{cDate,jdbcType=DATE},
+      </if>
+      <if test="cWeek != null" >
+        #{cWeek,jdbcType=INTEGER},
+      </if>
+      <if test="cMan != null" >
+        #{cMan,jdbcType=VARCHAR},
+      </if>
+      <if test="cPage != null" >
+        #{cPage,jdbcType=VARCHAR},
+      </if>
+      <if test="cOldNum != null" >
+        #{cOldNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cNewNum != null" >
+        #{cNewNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cSn != null" >
+        #{cSn,jdbcType=VARCHAR},
+      </if>
+      <if test="cIt != null" >
+        #{cIt,jdbcType=VARCHAR},
+      </if>
+      <if test="cChangeDate != null" >
+        #{cChangeDate,jdbcType=DATE},
+      </if>
+      <if test="cResult != null" >
+        #{cResult,jdbcType=VARCHAR},
+      </if>
+      <if test="cReceiveMan != null" >
+        #{cReceiveMan,jdbcType=VARCHAR},
+      </if>
+      <if test="cNote != null" >
+        #{cNote,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cType != null" >
+        #{cType,jdbcType=VARCHAR},
+      </if>
+      <if test="cState != null" >
+        #{cState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        #{uNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.XtPdaChange" >
+    update xt_pda_change
+    <set >
+      <if test="cDate != null" >
+        c_date = #{cDate,jdbcType=DATE},
+      </if>
+      <if test="cWeek != null" >
+        c_week = #{cWeek,jdbcType=INTEGER},
+      </if>
+      <if test="cMan != null" >
+        c_man = #{cMan,jdbcType=VARCHAR},
+      </if>
+      <if test="cPage != null" >
+        c_page = #{cPage,jdbcType=VARCHAR},
+      </if>
+      <if test="cOldNum != null" >
+        c_old_num = #{cOldNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cNewNum != null" >
+        c_new_num = #{cNewNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cSn != null" >
+        c_sn = #{cSn,jdbcType=VARCHAR},
+      </if>
+      <if test="cIt != null" >
+        c_it = #{cIt,jdbcType=VARCHAR},
+      </if>
+      <if test="cChangeDate != null" >
+        c_change_date = #{cChangeDate,jdbcType=DATE},
+      </if>
+      <if test="cResult != null" >
+        c_result = #{cResult,jdbcType=VARCHAR},
+      </if>
+      <if test="cReceiveMan != null" >
+        c_receive_man = #{cReceiveMan,jdbcType=VARCHAR},
+      </if>
+      <if test="cNote != null" >
+        c_note = #{cNote,jdbcType=VARCHAR},
+      </if>
+      <if test="cCreateTime != null" >
+        c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cType != null" >
+        c_type = #{cType,jdbcType=VARCHAR},
+      </if>
+      <if test="cState != null" >
+        c_state = #{cState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        u_num = #{uNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.XtPdaChange" >
+    update xt_pda_change
+    set c_date = #{cDate,jdbcType=DATE},
+      c_week = #{cWeek,jdbcType=INTEGER},
+      c_man = #{cMan,jdbcType=VARCHAR},
+      c_page = #{cPage,jdbcType=VARCHAR},
+      c_old_num = #{cOldNum,jdbcType=VARCHAR},
+      c_new_num = #{cNewNum,jdbcType=VARCHAR},
+      c_sn = #{cSn,jdbcType=VARCHAR},
+      c_it = #{cIt,jdbcType=VARCHAR},
+      c_change_date = #{cChangeDate,jdbcType=DATE},
+      c_result = #{cResult,jdbcType=VARCHAR},
+      c_receive_man = #{cReceiveMan,jdbcType=VARCHAR},
+      c_note = #{cNote,jdbcType=VARCHAR},
+      c_create_time = #{cCreateTime,jdbcType=TIMESTAMP},
+      c_type = #{cType,jdbcType=VARCHAR},
+      c_state = #{cState,jdbcType=VARCHAR},
+      u_num = #{uNum,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=VARCHAR}
+  </update>
+</mapper>

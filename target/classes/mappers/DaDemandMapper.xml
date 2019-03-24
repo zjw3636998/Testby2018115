@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.DaDemandMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.DaDemand" >
+    <id column="d_id" property="dId" jdbcType="VARCHAR" />
+    <result column="d_applicant" property="dApplicant" jdbcType="VARCHAR" />
+    <result column="d_content" property="dContent" jdbcType="VARCHAR" />
+    <result column="d_type" property="dType" jdbcType="VARCHAR" />
+    <result column="d_time" property="dTime" jdbcType="TIMESTAMP" />
+    <result column="d_time_expect" property="dTimeExpect" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    d_id, d_applicant, d_content, d_type, d_time, d_time_expect
+  </sql>
+  <select id="countFromMonth" resultType="int">
+  	select count(*) 
+  	from da_demand
+  	where d_time between #{start} and #{end}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from da_demand
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from da_demand
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.DaDemand" >
+    insert into da_demand (d_id, d_applicant, d_content, 
+      d_type, d_time, d_time_expect
+      )
+    values (#{dId,jdbcType=VARCHAR}, #{dApplicant,jdbcType=VARCHAR}, #{dContent,jdbcType=VARCHAR}, 
+      #{dType,jdbcType=VARCHAR}, #{dTime,jdbcType=TIMESTAMP}, #{dTimeExpect,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.DaDemand" >
+    insert into da_demand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="dApplicant != null" >
+        d_applicant,
+      </if>
+      <if test="dContent != null" >
+        d_content,
+      </if>
+      <if test="dType != null" >
+        d_type,
+      </if>
+      <if test="dTime != null" >
+        d_time,
+      </if>
+      <if test="dTimeExpect != null" >
+        d_time_expect,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="dApplicant != null" >
+        #{dApplicant,jdbcType=VARCHAR},
+      </if>
+      <if test="dContent != null" >
+        #{dContent,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null" >
+        #{dType,jdbcType=VARCHAR},
+      </if>
+      <if test="dTime != null" >
+        #{dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dTimeExpect != null" >
+        #{dTimeExpect,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.DaDemand" >
+    update da_demand
+    <set >
+      <if test="dApplicant != null" >
+        d_applicant = #{dApplicant,jdbcType=VARCHAR},
+      </if>
+      <if test="dContent != null" >
+        d_content = #{dContent,jdbcType=VARCHAR},
+      </if>
+      <if test="dType != null" >
+        d_type = #{dType,jdbcType=VARCHAR},
+      </if>
+      <if test="dTime != null" >
+        d_time = #{dTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dTimeExpect != null" >
+        d_time_expect = #{dTimeExpect,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.DaDemand" >
+    update da_demand
+    set d_applicant = #{dApplicant,jdbcType=VARCHAR},
+      d_content = #{dContent,jdbcType=VARCHAR},
+      d_type = #{dType,jdbcType=VARCHAR},
+      d_time = #{dTime,jdbcType=TIMESTAMP},
+      d_time_expect = #{dTimeExpect,jdbcType=TIMESTAMP}
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </update>
+</mapper>

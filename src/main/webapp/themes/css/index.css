@@ -1,0 +1,324 @@
+/*
+* @Author: asus
+* @Date:   2018-10-31 14:36:34
+* @Last Modified by:   asus
+* @Last Modified time: 2018-11-07 11:34:12
+*/
+html,body{
+	height: 100%;
+	background-color: #f3f3f3;
+	font-size: 14px;
+	font-family: '微软雅黑';
+	overflow: hidden;
+}
+ul, ol {
+    margin:0;
+}
+a,a:focus,a:hover{
+	text-decoration: none;
+	outline: none;
+	cursor: pointer;
+    color: inherit;
+}
+.fl{
+	float: left;
+}
+.fl100{
+	float: left;
+	width: 100%;
+}
+.center{
+	width: 1200px;
+	margin: 0 auto;
+}
+.fr{
+	float: right;
+}
+*{
+	moz-user-select: -moz-none;
+	-moz-user-select: none;
+	-o-user-select:none;
+	-khtml-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
+.guodu{
+	transition: all linear 0.2s;
+	-moz-transition: all linear 0.2s;	/* Firefox 4 */
+	-webkit-transition: all linear 0.2s;	/* Safari 和 Chrome */
+	-o-transition: all linear 0.2s;	/* Opera */
+}
+.wrapper {
+	height: 100%;
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.main-header {
+    position: relative;
+    max-height: 60px;
+    z-index: 1030;
+}
+.main-header .logo {
+	display: block;
+    float: left;
+    height: 60px;
+    font-size: 22px;
+    line-height: 60px;
+    text-align: center;
+    width: 260px;
+    overflow: hidden;
+    background-color: #0e72ef;
+}
+/* .logo .logo-mini {
+	width: 42px;
+	height: 42px;
+	display: none;
+} */
+.logo .logo-lg {
+	width: 260px;
+	height: 60px;
+}
+.logo .logo-lg .logo-com {
+	width: 30px;
+	height: 30px;
+}
+.logo .logo-lg .logo-name {
+	font-size: 16px;
+	color: #fff;
+	padding-left: 10px;
+}
+.main-header .navbar {
+	margin-bottom: 0;
+    margin-left: 260px;
+    border: none;
+    min-height: 60px;
+    border-radius: 0;
+    background-color: #0e72ef;
+}
+.navbar .slidbar-toggle {
+	float: left;
+    background-color: transparent;
+    background-image: none;
+    padding: 15px 15px;
+    font-family: fontAwesome;
+}
+.exit {
+	font-size: 16px;
+	color: #fff;
+	float: right;
+	line-height: 60px;
+	padding-right: 20px;
+}
+
+.main-slidebar {
+	position: absolute;
+    top: 60px;
+    left: 0;
+    min-height: 100%;
+    width: 260px;
+    z-index: 810;
+    background-color: #fff;
+    box-shadow: 0 0 2px #e0e0e0;
+}
+.main-slidebar .slide {
+	height: auto;
+}
+.user-panel {
+	position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-left: 20px;
+    display: block;
+    height: 80px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.user-info {
+	margin-left: 20px;
+	margin-top: 17px;
+}
+.user-img {
+	margin-top: 20px;
+}
+.user-name  {
+	font-size: 18px;
+	color: #222;
+}
+.user-ori {
+	font-size: 14px;
+	color: #888;
+
+}
+.navbar-scroll-inner {
+	padding: 0 0 50px 0;
+	background-color: #fff;
+    float: left;
+    width: 100%;
+}
+.lis {
+	
+    float: left;
+    width: 100%;
+}
+.lis > a{
+       float: left;
+      
+}
+
+.lis > a > span{
+    /* margin-left: 10px; */
+    font-size: 14px;
+    color: #888;
+}
+.lis-out{
+    float: left;
+    width: 100%;
+    display: none;
+}
+.lis .fl.glyphicon{
+   /*  margin: 11px 0 13px 10px; */
+}
+.lis .fl.glyphicon{
+   /*  margin: 13px 10px 0 0; */
+    font-size: 12px;
+    line-height: 16px;
+    margin-left: 10px;
+}
+.lis.open > .lis-out{
+     display: block;
+}
+.lis > a > .fl.glyphicon.rotate{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+/* .lis .lis > a{
+        padding-left: 24px;
+} */
+.lis .lis .lis > a{
+    padding-left: 44px;
+}
+.navbar-scroll-inner > .lis{
+    /*background: url("../images/left-jg.png") center bottom no-repeat;*/
+}
+.navbar-scroll-inner > .lis:hover,.navbar-scroll-inner > .lis.open{
+   /*  background-color: #4E5465;
+    border-left: 5px solid #009688;
+ */
+}
+.yiji {
+	margin-top: 40px;
+	
+}
+.yiji > a {
+	line-height: 16px;
+	padding-left: 40px;
+}
+.yiji > a > span {
+	font-size: 14px;
+	color: #888;
+}
+
+.jiantou{
+	position: absolute;
+	left: 200px;
+	top: 50%;
+	margin-top: -30px;
+	cursor: pointer;
+	z-index: 1;
+    -webkit-transition: left linear 0.2s;
+    -moz-transition: left linear 0.2s;
+    -ms-transition: left linear 0.2s;
+    -o-transition: left linear 0.2s;
+    transition: left linear 0.2s;
+	height: 60px;
+	width: 0;
+	border-left: 14px solid #009688;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+}
+.jiantou span{
+	left: -14px;
+   	top: 12px;
+   	color: #fff;
+}
+.jiantou:hover{
+	border-left: 14px solid #000;
+}
+.erji {
+	margin-top: 10px;
+
+}
+.erji > a {
+	margin-left: 20px;
+	height: 50px;
+	line-height: 50px;
+	display: flex;
+}
+.erji > a >.nav-square {
+	display: block;
+	float: left;
+	margin: auto 0;
+	margin-left: 20px;
+	margin-right: 10px;
+	vertical-align: middle;
+	align-items: center;
+}
+.erji > a > span {
+	font-size: 16px;
+	color: #222;
+}
+.chose {
+ 	background-color: #0e72ef;
+   	width: 220px;
+	height: 44px;
+	border-radius: 88px;
+}
+.home-img {
+	width: 22px;
+	height: 22px;
+	margin-top: 11px;
+}
+.lis > a > .home-slogan {
+	font-size: 16px;
+	color: #222;
+	padding-left: 10px;
+}
+.lis > .home-link {
+	width: 220px;
+	height: 44px;
+	background-color: #eff3f9;
+	border-radius: 88px;
+	margin-left: 20px;
+	line-height: 44px;
+	padding-left: 20px;
+}
+
+/* 右侧主内容 */
+.page-wrapper{
+	position: absolute;
+	left: 260px;
+	right: 0;
+	z-index: 0;
+	height: 100%;
+}
+
+.layui-show {
+	position: absolute;
+	left: 0;
+	top: 0px;
+	z-index: -1;
+	overflow: hidden;
+	 width: 100%;
+     height: 100%;
+}
+.layui-show iframe{
+        background-color: #ffffff;
+        width: 100%;
+        height: 100%;
+    }
+
+

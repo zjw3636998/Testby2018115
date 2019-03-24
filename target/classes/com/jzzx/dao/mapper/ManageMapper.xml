@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzzx.dao.ManageDao">
+	<resultMap type="com.jzzx.bean.FileTable" id="fileTable">
+		<result column="f_id" property="file_id" javaType="int" jdbcType="BIGINT" />
+		<result column="f_name" property="file_name" javaType="string" jdbcType="VARCHAR" />
+		<result column="f_type" property="file_type" javaType="int" jdbcType="INTEGER" />
+		<result column="f_url" property="file_url" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="f_user" property="file_user" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="f_createtime" property="file_createtime" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="f_reporttime" property="file_reporttime" javaType="string" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<insert id="uploadFile" parameterType="com.jzzx.bean.FileTable">
+		insert into t_file(f_name,f_type,f_url,f_user,f_createtime) values(#{file_name},#{file_type},#{file_url},#{file_user},#{file_createtime}) 
+	</insert>
+	<select id="fileCount" resultType="java.lang.Integer" statementType="PREPARED">
+		select count(*) from t_file where f_type=#{f_type}
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if> 
+	</select>
+	<select id="getPageFile" resultMap="fileTable" statementType="PREPARED">
+		select * from t_file where f_type=#{f_type}
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if>
+		order by str_to_date(f_createtime,'%Y-%m-%d %H:%i:%s') desc limit #{fromIndex},#{pageSize}
+	</select>
+	<delete id="deleteFile">
+		delete from t_file where f_url=#{fileUrl}
+	</delete>
+	<resultMap type="com.jzzx.bean.MeetingTable" id="meetingTable">
+		<result column="m_id" property="m_id" javaType="int" jdbcType="BIGINT" />
+		<result column="m_type" property="m_type" javaType="int" jdbcType="INTEGER" />
+		<result column="m_title" property="m_title" javaType="string" jdbcType="VARCHAR" />
+		<result column="m_content" property="m_content" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="m_begin" property="m_begin" javaType="string" jdbcType="VARCHAR" />
+		<result column="m_end" property="m_end" javaType="string" jdbcType="VARCHAR" />
+		<result column="m_recorder" property="m_recorder" javaType="string" jdbcType="VARCHAR" />
+		<result column="m_createtime" property="m_createtime" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<insert id="uploadMeeting" parameterType="com.jzzx.bean.MeetingTable">
+		insert into t_meeting(m_type,m_title,m_content,m_begin,m_end,m_recorder,m_createtime) values(#{m_type},#{m_title},#{m_content},#{m_begin},#{m_end},#{m_recorder},#{m_createtime})
+	</insert>
+	
+	<select id="seletMeetCount" resultType="java.lang.Integer" statementType="PREPARED">
+		select count(*) from t_meeting where 1=1 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if> 
+	</select>
+	<select id="getPageMeeting" resultMap="meetingTable" statementType="PREPARED">
+		select * from t_meeting where 1=1 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if>
+		order by str_to_date(m_createtime,'%Y-%m-%d %H:%i:%s') desc limit #{fromIndex},#{pageSize}
+	</select>
+	<delete id="delMeeting">
+		delete from t_meeting where m_id=#{mid}
+	</delete>
+	<select id="meetingContent" resultType="string">
+		select m_content from t_meeting where m_id=#{mid}
+	</select>
+	<resultMap type="com.jzzx.bean.Employee" id="employee">
+		<result column="emp_id" property="emp_id" javaType="int" jdbcType="BIGINT" />
+		<result column="user_id" property="user_id" javaType="int" jdbcType="INTEGER" />
+		<result column="empName" property="empName" javaType="string" jdbcType="VARCHAR" />
+		<result column="entry_time" property="entry_time" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="regular_time" property="regular_time" javaType="string" jdbcType="VARCHAR" />
+		<result column="department" property="department" javaType="string" jdbcType="VARCHAR" />
+		<result column="education" property="education" javaType="string" jdbcType="VARCHAR" />
+		<result column="m_createtime" property="m_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="level" property="level" javaType="int" jdbcType="INTEGER" />
+		<result column="dimission" property="dimission" javaType="string" jdbcType="VARCHAR" />
+		<result column="upd_emp" property="upd_emp" javaType="string" jdbcType="VARCHAR" />
+		<result column="upd_time" property="upd_time" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectEmpCount" resultType="java.lang.Integer" statementType="PREPARED">
+		select count(*) from t_employee where 1=1   
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if> 
+	</select>
+	<select id="getPageEmployee" resultMap="employee" statementType="PREPARED">
+		select * from t_employee where 1=1  
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if>
+	</select>
+	<update id="updEmployee">
+		update t_employee set dimission=#{time} where user_id=#{user_id} 
+ 	</update>
+ 	<update id="updUser">
+ 		update t_user set u_cancel=#{time} where u_id=#{user_id}
+ 	</update>
+ 	<delete id="delRoleUser">
+ 		delete from t_user_role where user_id=#{user_id}
+ 	</delete>
+ 	<resultMap type="com.jzzx.bean.UserTable" id="userTable">
+		<result column="u_id" property="u_id" javaType="int" jdbcType="INTEGER" />
+		<result column="u_account" property="u_account" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_password" property="u_password" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_name" property="u_name" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_phone" property="u_phone" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_headimg" property="u_headimg" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_createtime" property="u_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_newtime" property="u_newtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_createtime" property="u_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_cancel" property="u_cancel" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="userMessage" resultMap="userTable">
+		select * from t_user where u_id=#{user_id}
+	</select>
+ 	
+ 	<insert id="addAccount" parameterType="com.jzzx.bean.UserTable"  useGeneratedKeys="true" keyProperty="u_id">
+ 		insert into t_user(u_account,u_password,u_name,u_phone,u_headimg,u_createtime) values(#{u_account},#{u_password},#{u_name},#{u_phone},#{u_headimg},#{u_createtime})
+ 		<!-- <selectKey keyProperty="u_id" order="AFTER" resultType="java.lang.Integer">
+       	 	SELECT LAST_INSERT_ID()
+    	</selectKey> -->
+ 	</insert>
+ 	<insert id="addEmpRole">
+ 		insert t_user_role(role_id,user_id) values(#{depart_id},#{u_id})
+ 	</insert>
+ 	
+ 	<insert id="addEmployee" parameterType="com.jzzx.bean.Employee">
+ 		insert into t_employee(user_id,empName,entry_time,regular_time,department,education,level,upd_emp,upd_time) 
+ 		values(#{user_id},#{empName},#{entry_time},#{regular_time},#{department},#{education},#{level},#{upd_emp},#{upd_time})
+ 	</insert>
+</mapper>

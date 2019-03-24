@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.XtSiteMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.XtSite" >
+    <id column="s_id" property="sId" jdbcType="VARCHAR" />
+    <result column="s_num" property="sNum" jdbcType="VARCHAR" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="s_start_date" property="sStartDate" jdbcType="DATE" />
+    <result column="s_maintain_date" property="sMaintainDate" jdbcType="DATE" />
+    <result column="s_maintain_cycle" property="sMaintainCycle" jdbcType="INTEGER" />
+    <result column="s_maintain_type" property="sMaintainType" jdbcType="VARCHAR" />
+    <result column="s_maintain_man" property="sMaintainMan" jdbcType="VARCHAR" />
+    <result column="s_notice" property="sNotice" jdbcType="VARCHAR" />
+    <result column="s_note" property="sNote" jdbcType="VARCHAR" />
+    <result column="s_site_type" property="sSiteType" jdbcType="VARCHAR" />
+    <result column="s_create_time" property="sCreateTime" jdbcType="TIMESTAMP" />
+    <result column="s_state" property="sState" jdbcType="VARCHAR" />
+    <result column="u_num" property="uNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    s_id, s_num, s_name, s_start_date, s_maintain_date, s_maintain_cycle, s_maintain_type, 
+    s_maintain_man, s_notice, s_note, s_site_type, s_create_time, s_state, u_num
+  </sql>
+  <select id="timeComparison" resultType="int">
+  	select count(*) 
+  	from xt_site
+  	where s_state = '有效' and s_maintain_date > s_start_date and s_maintain_date between #{start} and #{end}
+  </select>
+  <select id="countFromMonth" resultType="int">
+  	select count(*) 
+  	from xt_site
+  	where s_state = '有效' and s_maintain_date between #{start} and #{end}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xt_site
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xt_site
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.XtSite" >
+    insert into xt_site (s_id, s_num, s_name, 
+      s_start_date, s_maintain_date, s_maintain_cycle, 
+      s_maintain_type, s_maintain_man, s_notice, 
+      s_note, s_site_type, s_create_time, 
+      s_state, u_num)
+    values (#{sId,jdbcType=VARCHAR}, #{sNum,jdbcType=VARCHAR}, #{sName,jdbcType=VARCHAR}, 
+      #{sStartDate,jdbcType=DATE}, #{sMaintainDate,jdbcType=DATE}, #{sMaintainCycle,jdbcType=INTEGER}, 
+      #{sMaintainType,jdbcType=VARCHAR}, #{sMaintainMan,jdbcType=VARCHAR}, #{sNotice,jdbcType=VARCHAR}, 
+      #{sNote,jdbcType=VARCHAR}, #{sSiteType,jdbcType=VARCHAR}, #{sCreateTime,jdbcType=TIMESTAMP}, 
+      #{sState,jdbcType=VARCHAR}, #{uNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.XtSite" >
+    insert into xt_site
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sNum != null" >
+        s_num,
+      </if>
+      <if test="sName != null" >
+        s_name,
+      </if>
+      <if test="sStartDate != null" >
+        s_start_date,
+      </if>
+      <if test="sMaintainDate != null" >
+        s_maintain_date,
+      </if>
+      <if test="sMaintainCycle != null" >
+        s_maintain_cycle,
+      </if>
+      <if test="sMaintainType != null" >
+        s_maintain_type,
+      </if>
+      <if test="sMaintainMan != null" >
+        s_maintain_man,
+      </if>
+      <if test="sNotice != null" >
+        s_notice,
+      </if>
+      <if test="sNote != null" >
+        s_note,
+      </if>
+      <if test="sSiteType != null" >
+        s_site_type,
+      </if>
+      <if test="sCreateTime != null" >
+        s_create_time,
+      </if>
+      <if test="sState != null" >
+        s_state,
+      </if>
+      <if test="uNum != null" >
+        u_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sId != null" >
+        #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="sNum != null" >
+        #{sNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sStartDate != null" >
+        #{sStartDate,jdbcType=DATE},
+      </if>
+      <if test="sMaintainDate != null" >
+        #{sMaintainDate,jdbcType=DATE},
+      </if>
+      <if test="sMaintainCycle != null" >
+        #{sMaintainCycle,jdbcType=INTEGER},
+      </if>
+      <if test="sMaintainType != null" >
+        #{sMaintainType,jdbcType=VARCHAR},
+      </if>
+      <if test="sMaintainMan != null" >
+        #{sMaintainMan,jdbcType=VARCHAR},
+      </if>
+      <if test="sNotice != null" >
+        #{sNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="sNote != null" >
+        #{sNote,jdbcType=VARCHAR},
+      </if>
+      <if test="sSiteType != null" >
+        #{sSiteType,jdbcType=VARCHAR},
+      </if>
+      <if test="sCreateTime != null" >
+        #{sCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sState != null" >
+        #{sState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        #{uNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.XtSite" >
+    update xt_site
+    <set >
+      <if test="sNum != null" >
+        s_num = #{sNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null" >
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sStartDate != null" >
+        s_start_date = #{sStartDate,jdbcType=DATE},
+      </if>
+      <if test="sMaintainDate != null" >
+        s_maintain_date = #{sMaintainDate,jdbcType=DATE},
+      </if>
+      <if test="sMaintainCycle != null" >
+        s_maintain_cycle = #{sMaintainCycle,jdbcType=INTEGER},
+      </if>
+      <if test="sMaintainType != null" >
+        s_maintain_type = #{sMaintainType,jdbcType=VARCHAR},
+      </if>
+      <if test="sMaintainMan != null" >
+        s_maintain_man = #{sMaintainMan,jdbcType=VARCHAR},
+      </if>
+      <if test="sNotice != null" >
+        s_notice = #{sNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="sNote != null" >
+        s_note = #{sNote,jdbcType=VARCHAR},
+      </if>
+      <if test="sSiteType != null" >
+        s_site_type = #{sSiteType,jdbcType=VARCHAR},
+      </if>
+      <if test="sCreateTime != null" >
+        s_create_time = #{sCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sState != null" >
+        s_state = #{sState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        u_num = #{uNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.XtSite" >
+    update xt_site
+    set s_num = #{sNum,jdbcType=VARCHAR},
+      s_name = #{sName,jdbcType=VARCHAR},
+      s_start_date = #{sStartDate,jdbcType=DATE},
+      s_maintain_date = #{sMaintainDate,jdbcType=DATE},
+      s_maintain_cycle = #{sMaintainCycle,jdbcType=INTEGER},
+      s_maintain_type = #{sMaintainType,jdbcType=VARCHAR},
+      s_maintain_man = #{sMaintainMan,jdbcType=VARCHAR},
+      s_notice = #{sNotice,jdbcType=VARCHAR},
+      s_note = #{sNote,jdbcType=VARCHAR},
+      s_site_type = #{sSiteType,jdbcType=VARCHAR},
+      s_create_time = #{sCreateTime,jdbcType=TIMESTAMP},
+      s_state = #{sState,jdbcType=VARCHAR},
+      u_num = #{uNum,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </update>
+</mapper>

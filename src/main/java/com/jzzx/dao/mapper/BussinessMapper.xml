@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzzx.dao.BussinessDao">
+	<resultMap type="com.jzzx.bean.CenturyPlan" id="centuryPlan">
+		<result column="id" property="id" javaType="int" jdbcType="BIGINT" />
+		<result column="planSource" property="planSource" javaType="int" jdbcType="INTEGER" />
+		<result column="name" property="name" javaType="string" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" javaType="string" jdbcType="VARCHAR" />
+		<result column="company" property="company" javaType="string" jdbcType="VARCHAR" />
+		<result column="submittime" property="submittime" javaType="string" jdbcType="VARCHAR" />
+		<result column="grade" property="grade" javaType="int" jdbcType="INTEGER" />
+		<result column="openid" property="openid" javaType="string" jdbcType="VARCHAR" />
+		<result column="orderid" property="orderid" javaType="string" jdbcType="VARCHAR" />
+		<result column="dealState" property="dealState" javaType="int" jdbcType="INTEGER" />
+		<result column="assignEmp" property="assignEmp" javaType="string" jdbcType="VARCHAR" />
+		<result column="assignTime" property="assignTime" javaType="string" jdbcType="VARCHAR" />
+		<result column="dealEmp" property="dealEmp" javaType="string" jdbcType="VARCHAR" />
+		<result column="remake" property="remake" javaType="string" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<select id="sourceCentury" resultMap="centuryPlan">
+		select * from CenturyPlan where planSource=#{planSource} and dealState=#{dealState}
+	</select>
+	<update id="updDealState">
+		update CenturyPlan set dealState=#{state} 
+		<if test="state==1">
+			,dealEmp="" 
+		</if>
+		where id=#{dsId}
+	</update>
+	<resultMap type="com.jzzx.bean.OrderTable" id="orderTable">
+		<result column="order_id" property="order_id" javaType="int" jdbcType="BIGINT" />
+		<result column="order_type" property="order_type" javaType="int" jdbcType="INTEGER" />
+		<result column="order_content" property="order_content" javaType="string" jdbcType="LONGVARCHAR"/>
+		<result column="openid" property="openid" javaType="string" jdbcType="VARCHAR" />
+		<result column="out_trade_no" property="out_trade_no" javaType="string" jdbcType="VARCHAR" />
+		<result column="order_createtime" property="order_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="order_pay" property="order_pay" javaType="int" jdbcType="INTEGER" />
+		<result column="order_state" property="order_state" javaType="int" jdbcType="INTEGER" />
+		<result column="order_deal" property="order_deal" javaType="string" jdbcType="VARCHAR" />
+		<result column="order_ps" property="order_ps" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="sourceWyzx" resultMap="orderTable">
+		select * from OrderTable where order_type=#{orderType} and order_state=#{orderState}
+	</select>
+	<update id="updDealWyzx">
+		update OrderTable set order_state=#{state} 
+		<if test="state==1">
+			,order_deal="" 
+		</if>
+		where order_id=#{dsId}
+	</update>
+	<resultMap type="com.jzzx.bean.OfflinePay" id="offlinePay">
+		<result column="op_id" property="op_id" javaType="int" jdbcType="BIGINT" />
+		<result column="op_name" property="op_name" javaType="string" jdbcType="VARCHAR"/>
+		<result column="op_phone" property="op_phone" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_type" property="op_type" javaType="int" jdbcType="INTEGER" />
+		<result column="op_createtime" property="op_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_dealState" property="op_dealState" javaType="int" jdbcType="INTEGER" />
+		<result column="op_deal" property="op_deal" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_dealtime" property="op_dealtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_resp" property="op_resp" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_ps" property="op_ps" javaType="string" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<select id="sourceXxzx" resultMap="offlinePay">
+		select * from OfflinePay where op_dealState=#{state}
+	</select>
+	<update id="updDealXxzx">
+		update OfflinePay set op_dealState=#{state} 
+		<if test="state==1">
+			,op_deal="" 
+		</if>
+		where op_id=#{dsId}
+	</update>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzzx.dao.CaseDao">
+	<resultMap type="com.jzzx.bean.CaseTable" id="caseTable">
+		<result column="case_id" property="case_id" javaType="int" jdbcType="INTEGER" />
+		<result column="case_title" property="case_title" javaType="string" jdbcType="VARCHAR" />
+		<result column="case_type" property="case_type" javaType="int" jdbcType="INTEGER" />
+		<result column="case_descript" property="case_descript" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="case_question" property="case_question" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="case_answer" property="case_answer" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="case_result" property="case_result" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="case_author" property="case_author" javaType="string" jdbcType="VARCHAR" />
+		<result column="case_createTime" property="case_createTime" javaType="string" jdbcType="VARCHAR" />
+		<result column="case_reader" property="case_reader" javaType="int" jdbcType="INTEGER" />
+		<result column="case_state" property="case_state" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap type="com.jzzx.bean.CaseType" id="caseType">
+		<result column="caseType_id" property="caseType_id" javaType="int" jdbcType="INTEGER" />
+		<result column="caseType_name" property="caseType_name" javaType="string" jdbcType="VARCHAR"/>
+		<result column="keyword" property="keyword" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+	<!-- 查询全部案例 -->
+	<select id="totalCount" resultType="java.lang.Integer" >
+		select count(*) from CaseTable where case_state=#{state}
+	</select>
+	<select id="getPageUtilsCase" resultMap="caseTable">
+		select case_id,case_title,case_type,case_author,case_createTime,case_reader from CaseTable where case_state=#{state} limit #{fromIndex},#{pageSize}
+	</select>	
+	<!-- 查询案例内容 -->
+	<select id="searchCaseContent" resultMap="caseTable">
+		select case_descript,case_question,case_answer,case_result from CaseTable where case_id=#{caseId}
+	</select>
+	<!-- 预删除&&恢复 -->
+	<update id="delCase">
+		update CaseTable set case_state=#{case_state} where case_id=#{caseId}
+	</update>
+	<!-- 查询案例所属行业 -->
+	<select id="searchCaseType" resultMap="caseType">
+		select caseType_id,caseType_name,keyword from CaseType
+	</select>
+	<!-- 增加案例 -->
+	<insert id="addCase" parameterType="com.jzzx.bean.CaseTable">
+		insert into CaseTable(case_title,case_type,case_descript,case_question,case_answer,case_result,case_author,case_createTime,case_reader,case_state) 
+		values(#{case_title},#{case_type},#{case_descript},#{case_question},#{case_answer},#{case_result},#{case_author},#{case_createTime},#{case_reader},#{case_state})
+	</insert>
+	<!-- 删除案例 -->
+	<delete id="deleteCase">
+		delete from CaseTable where case_id=#{caseId}
+	</delete>
+</mapper>

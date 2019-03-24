@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.DaPerformMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.DaPerform" >
+    <id column="p_id" property="pId" jdbcType="VARCHAR" />
+    <result column="u_num" property="uNum" jdbcType="VARCHAR" />
+    <result column="p_time" property="pTime" jdbcType="TIMESTAMP" />
+    <result column="p_state" property="pState" jdbcType="VARCHAR" />
+    <result column="u_num_next" property="uNumNext" jdbcType="VARCHAR" />
+    <result column="d_id" property="dId" jdbcType="VARCHAR" />
+    <result column="p_note" property="pNote" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_id, u_num, p_time, p_state, u_num_next, d_id, p_note
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from da_perform
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from da_perform
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.DaPerform" >
+    insert into da_perform (p_id, u_num, p_time, 
+      p_state, u_num_next, d_id, 
+      p_note)
+    values (#{pId,jdbcType=VARCHAR}, #{uNum,jdbcType=VARCHAR}, #{pTime,jdbcType=TIMESTAMP}, 
+      #{pState,jdbcType=VARCHAR}, #{uNumNext,jdbcType=VARCHAR}, #{dId,jdbcType=VARCHAR}, 
+      #{pNote,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.DaPerform" >
+    insert into da_perform
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="uNum != null" >
+        u_num,
+      </if>
+      <if test="pTime != null" >
+        p_time,
+      </if>
+      <if test="pState != null" >
+        p_state,
+      </if>
+      <if test="uNumNext != null" >
+        u_num_next,
+      </if>
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="pNote != null" >
+        p_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        #{uNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pTime != null" >
+        #{pTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pState != null" >
+        #{pState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNumNext != null" >
+        #{uNumNext,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null" >
+        #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="pNote != null" >
+        #{pNote,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.DaPerform" >
+    update da_perform
+    <set >
+      <if test="uNum != null" >
+        u_num = #{uNum,jdbcType=VARCHAR},
+      </if>
+      <if test="pTime != null" >
+        p_time = #{pTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pState != null" >
+        p_state = #{pState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNumNext != null" >
+        u_num_next = #{uNumNext,jdbcType=VARCHAR},
+      </if>
+      <if test="dId != null" >
+        d_id = #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="pNote != null" >
+        p_note = #{pNote,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.DaPerform" >
+    update da_perform
+    set u_num = #{uNum,jdbcType=VARCHAR},
+      p_time = #{pTime,jdbcType=TIMESTAMP},
+      p_state = #{pState,jdbcType=VARCHAR},
+      u_num_next = #{uNumNext,jdbcType=VARCHAR},
+      d_id = #{dId,jdbcType=VARCHAR},
+      p_note = #{pNote,jdbcType=VARCHAR}
+    where p_id = #{pId,jdbcType=VARCHAR}
+  </update>
+</mapper>

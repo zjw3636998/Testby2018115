@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.QuotaCoreInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.QuotaCoreInfo" >
+    <id column="i_id" property="iId" jdbcType="VARCHAR" />
+    <result column="i_type" property="iType" jdbcType="VARCHAR" />
+    <result column="i_name" property="iName" jdbcType="VARCHAR" />
+    <result column="i_master" property="iMaster" jdbcType="VARCHAR" />
+    <result column="i_definition" property="iDefinition" jdbcType="VARCHAR" />
+    <result column="i_unit" property="iUnit" jdbcType="VARCHAR" />
+    <result column="i_source" property="iSource" jdbcType="VARCHAR" />
+    <result column="i_formula" property="iFormula" jdbcType="VARCHAR" />
+    <result column="i_target_value" property="iTargetValue" jdbcType="DOUBLE" />
+    <result column="i_year" property="iYear" jdbcType="DATE" />
+    <result column="i_state" property="iState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    i_id, i_type, i_name, i_master, i_definition, i_unit, i_source, i_formula, i_target_value, 
+    i_year, i_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from quota_core_info
+    where i_id = #{iId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from quota_core_info
+    where i_id = #{iId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.QuotaCoreInfo" >
+    insert into quota_core_info (i_id, i_type, i_name, 
+      i_master, i_definition, i_unit, 
+      i_source, i_formula, i_target_value, 
+      i_year, i_state)
+    values (#{iId,jdbcType=VARCHAR}, #{iType,jdbcType=VARCHAR}, #{iName,jdbcType=VARCHAR}, 
+      #{iMaster,jdbcType=VARCHAR}, #{iDefinition,jdbcType=VARCHAR}, #{iUnit,jdbcType=VARCHAR}, 
+      #{iSource,jdbcType=VARCHAR}, #{iFormula,jdbcType=VARCHAR}, #{iTargetValue,jdbcType=DOUBLE}, 
+      #{iYear,jdbcType=DATE}, #{iState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.QuotaCoreInfo" >
+    insert into quota_core_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        i_id,
+      </if>
+      <if test="iType != null" >
+        i_type,
+      </if>
+      <if test="iName != null" >
+        i_name,
+      </if>
+      <if test="iMaster != null" >
+        i_master,
+      </if>
+      <if test="iDefinition != null" >
+        i_definition,
+      </if>
+      <if test="iUnit != null" >
+        i_unit,
+      </if>
+      <if test="iSource != null" >
+        i_source,
+      </if>
+      <if test="iFormula != null" >
+        i_formula,
+      </if>
+      <if test="iTargetValue != null" >
+        i_target_value,
+      </if>
+      <if test="iYear != null" >
+        i_year,
+      </if>
+      <if test="iState != null" >
+        i_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iId != null" >
+        #{iId,jdbcType=VARCHAR},
+      </if>
+      <if test="iType != null" >
+        #{iType,jdbcType=VARCHAR},
+      </if>
+      <if test="iName != null" >
+        #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iMaster != null" >
+        #{iMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="iDefinition != null" >
+        #{iDefinition,jdbcType=VARCHAR},
+      </if>
+      <if test="iUnit != null" >
+        #{iUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="iSource != null" >
+        #{iSource,jdbcType=VARCHAR},
+      </if>
+      <if test="iFormula != null" >
+        #{iFormula,jdbcType=VARCHAR},
+      </if>
+      <if test="iTargetValue != null" >
+        #{iTargetValue,jdbcType=DOUBLE},
+      </if>
+      <if test="iYear != null" >
+        #{iYear,jdbcType=DATE},
+      </if>
+      <if test="iState != null" >
+        #{iState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.QuotaCoreInfo" >
+    update quota_core_info
+    <set >
+      <if test="iType != null" >
+        i_type = #{iType,jdbcType=VARCHAR},
+      </if>
+      <if test="iName != null" >
+        i_name = #{iName,jdbcType=VARCHAR},
+      </if>
+      <if test="iMaster != null" >
+        i_master = #{iMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="iDefinition != null" >
+        i_definition = #{iDefinition,jdbcType=VARCHAR},
+      </if>
+      <if test="iUnit != null" >
+        i_unit = #{iUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="iSource != null" >
+        i_source = #{iSource,jdbcType=VARCHAR},
+      </if>
+      <if test="iFormula != null" >
+        i_formula = #{iFormula,jdbcType=VARCHAR},
+      </if>
+      <if test="iTargetValue != null" >
+        i_target_value = #{iTargetValue,jdbcType=DOUBLE},
+      </if>
+      <if test="iYear != null" >
+        i_year = #{iYear,jdbcType=DATE},
+      </if>
+      <if test="iState != null" >
+        i_state = #{iState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where i_id = #{iId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.QuotaCoreInfo" >
+    update quota_core_info
+    set i_type = #{iType,jdbcType=VARCHAR},
+      i_name = #{iName,jdbcType=VARCHAR},
+      i_master = #{iMaster,jdbcType=VARCHAR},
+      i_definition = #{iDefinition,jdbcType=VARCHAR},
+      i_unit = #{iUnit,jdbcType=VARCHAR},
+      i_source = #{iSource,jdbcType=VARCHAR},
+      i_formula = #{iFormula,jdbcType=VARCHAR},
+      i_target_value = #{iTargetValue,jdbcType=DOUBLE},
+      i_year = #{iYear,jdbcType=DATE},
+      i_state = #{iState,jdbcType=VARCHAR}
+    where i_id = #{iId,jdbcType=VARCHAR}
+  </update>
+</mapper>

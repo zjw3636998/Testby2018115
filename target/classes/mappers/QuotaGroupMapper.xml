@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.QuotaGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.QuotaGroup" >
+    <id column="qg_id" property="qgId" jdbcType="VARCHAR" />
+    <result column="qg_date" property="qgDate" jdbcType="DATE" />
+    <result column="qg_group" property="qgGroup" jdbcType="VARCHAR" />
+    <result column="qg_functionary" property="qgFunctionary" jdbcType="VARCHAR" />
+    <result column="qg_type_zc" property="qgTypeZc" jdbcType="INTEGER" />
+    <result column="qg_type_wh" property="qgTypeWh" jdbcType="INTEGER" />
+    <result column="qg_type_zx" property="qgTypeZx" jdbcType="INTEGER" />
+    <result column="qg_count" property="qgCount" jdbcType="INTEGER" />
+    <result column="qg_productivity" property="qgProductivity" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    qg_id, qg_date, qg_group, qg_functionary, qg_type_zc, qg_type_wh, qg_type_zx, qg_count, 
+    qg_productivity
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from quota_group
+    where qg_id = #{qgId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from quota_group
+    where qg_id = #{qgId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.QuotaGroup" >
+    insert into quota_group (qg_id, qg_date, qg_group, 
+      qg_functionary, qg_type_zc, qg_type_wh, 
+      qg_type_zx, qg_count, qg_productivity
+      )
+    values (#{qgId,jdbcType=VARCHAR}, #{qgDate,jdbcType=DATE}, #{qgGroup,jdbcType=VARCHAR}, 
+      #{qgFunctionary,jdbcType=VARCHAR}, #{qgTypeZc,jdbcType=INTEGER}, #{qgTypeWh,jdbcType=INTEGER}, 
+      #{qgTypeZx,jdbcType=INTEGER}, #{qgCount,jdbcType=INTEGER}, #{qgProductivity,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.QuotaGroup" >
+    insert into quota_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qgId != null" >
+        qg_id,
+      </if>
+      <if test="qgDate != null" >
+        qg_date,
+      </if>
+      <if test="qgGroup != null" >
+        qg_group,
+      </if>
+      <if test="qgFunctionary != null" >
+        qg_functionary,
+      </if>
+      <if test="qgTypeZc != null" >
+        qg_type_zc,
+      </if>
+      <if test="qgTypeWh != null" >
+        qg_type_wh,
+      </if>
+      <if test="qgTypeZx != null" >
+        qg_type_zx,
+      </if>
+      <if test="qgCount != null" >
+        qg_count,
+      </if>
+      <if test="qgProductivity != null" >
+        qg_productivity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qgId != null" >
+        #{qgId,jdbcType=VARCHAR},
+      </if>
+      <if test="qgDate != null" >
+        #{qgDate,jdbcType=DATE},
+      </if>
+      <if test="qgGroup != null" >
+        #{qgGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="qgFunctionary != null" >
+        #{qgFunctionary,jdbcType=VARCHAR},
+      </if>
+      <if test="qgTypeZc != null" >
+        #{qgTypeZc,jdbcType=INTEGER},
+      </if>
+      <if test="qgTypeWh != null" >
+        #{qgTypeWh,jdbcType=INTEGER},
+      </if>
+      <if test="qgTypeZx != null" >
+        #{qgTypeZx,jdbcType=INTEGER},
+      </if>
+      <if test="qgCount != null" >
+        #{qgCount,jdbcType=INTEGER},
+      </if>
+      <if test="qgProductivity != null" >
+        #{qgProductivity,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.QuotaGroup" >
+    update quota_group
+    <set >
+      <if test="qgDate != null" >
+        qg_date = #{qgDate,jdbcType=DATE},
+      </if>
+      <if test="qgGroup != null" >
+        qg_group = #{qgGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="qgFunctionary != null" >
+        qg_functionary = #{qgFunctionary,jdbcType=VARCHAR},
+      </if>
+      <if test="qgTypeZc != null" >
+        qg_type_zc = #{qgTypeZc,jdbcType=INTEGER},
+      </if>
+      <if test="qgTypeWh != null" >
+        qg_type_wh = #{qgTypeWh,jdbcType=INTEGER},
+      </if>
+      <if test="qgTypeZx != null" >
+        qg_type_zx = #{qgTypeZx,jdbcType=INTEGER},
+      </if>
+      <if test="qgCount != null" >
+        qg_count = #{qgCount,jdbcType=INTEGER},
+      </if>
+      <if test="qgProductivity != null" >
+        qg_productivity = #{qgProductivity,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where qg_id = #{qgId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.QuotaGroup" >
+    update quota_group
+    set qg_date = #{qgDate,jdbcType=DATE},
+      qg_group = #{qgGroup,jdbcType=VARCHAR},
+      qg_functionary = #{qgFunctionary,jdbcType=VARCHAR},
+      qg_type_zc = #{qgTypeZc,jdbcType=INTEGER},
+      qg_type_wh = #{qgTypeWh,jdbcType=INTEGER},
+      qg_type_zx = #{qgTypeZx,jdbcType=INTEGER},
+      qg_count = #{qgCount,jdbcType=INTEGER},
+      qg_productivity = #{qgProductivity,jdbcType=DOUBLE}
+    where qg_id = #{qgId,jdbcType=VARCHAR}
+  </update>
+</mapper>

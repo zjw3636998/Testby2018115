@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.XtBranchesMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.XtBranches" >
+    <id column="b_id" property="bId" jdbcType="VARCHAR" />
+    <result column="b_date" property="bDate" jdbcType="DATE" />
+    <result column="b_maintain_date" property="bMaintainDate" jdbcType="DATE" />
+    <result column="b_maintain_week" property="bMaintainWeek" jdbcType="INTEGER" />
+    <result column="b_num_1" property="bNum1" jdbcType="VARCHAR" />
+    <result column="b_name_1" property="bName1" jdbcType="VARCHAR" />
+    <result column="b_master_1" property="bMaster1" jdbcType="VARCHAR" />
+    <result column="b_num_2" property="bNum2" jdbcType="VARCHAR" />
+    <result column="b_name_2" property="bName2" jdbcType="VARCHAR" />
+    <result column="b_note" property="bNote" jdbcType="VARCHAR" />
+    <result column="b_type" property="bType" jdbcType="VARCHAR" />
+    <result column="b_create_time" property="bCreateTime" jdbcType="TIMESTAMP" />
+    <result column="b_state" property="bState" jdbcType="VARCHAR" />
+    <result column="u_num" property="uNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    b_id, b_date, b_maintain_date, b_maintain_week, b_num_1, b_name_1, b_master_1, b_num_2, 
+    b_name_2, b_note, b_type, b_create_time, b_state, u_num
+  </sql>
+   <select id="timeComparison" resultType="int">
+  	select count(*) 
+  	from xt_branches
+  	where b_state = '有效' and b_maintain_date > b_date and b_maintain_date between #{start} and #{end}
+  </select>
+  <select id="countFromMonth" resultType="int">
+  	select count(*) 
+  	from xt_branches
+  	where b_state = '有效' and b_maintain_date between #{start} and #{end}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xt_branches
+    where b_id = #{bId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xt_branches
+    where b_id = #{bId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.XtBranches" >
+    insert into xt_branches (b_id, b_date, b_maintain_date, 
+      b_maintain_week, b_num_1, b_name_1, 
+      b_master_1, b_num_2, b_name_2, 
+      b_note, b_type, b_create_time, 
+      b_state, u_num)
+    values (#{bId,jdbcType=VARCHAR}, #{bDate,jdbcType=DATE}, #{bMaintainDate,jdbcType=DATE}, 
+      #{bMaintainWeek,jdbcType=INTEGER}, #{bNum1,jdbcType=VARCHAR}, #{bName1,jdbcType=VARCHAR}, 
+      #{bMaster1,jdbcType=VARCHAR}, #{bNum2,jdbcType=VARCHAR}, #{bName2,jdbcType=VARCHAR}, 
+      #{bNote,jdbcType=VARCHAR}, #{bType,jdbcType=VARCHAR}, #{bCreateTime,jdbcType=TIMESTAMP}, 
+      #{bState,jdbcType=VARCHAR}, #{uNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.XtBranches" >
+    insert into xt_branches
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="bDate != null" >
+        b_date,
+      </if>
+      <if test="bMaintainDate != null" >
+        b_maintain_date,
+      </if>
+      <if test="bMaintainWeek != null" >
+        b_maintain_week,
+      </if>
+      <if test="bNum1 != null" >
+        b_num_1,
+      </if>
+      <if test="bName1 != null" >
+        b_name_1,
+      </if>
+      <if test="bMaster1 != null" >
+        b_master_1,
+      </if>
+      <if test="bNum2 != null" >
+        b_num_2,
+      </if>
+      <if test="bName2 != null" >
+        b_name_2,
+      </if>
+      <if test="bNote != null" >
+        b_note,
+      </if>
+      <if test="bType != null" >
+        b_type,
+      </if>
+      <if test="bCreateTime != null" >
+        b_create_time,
+      </if>
+      <if test="bState != null" >
+        b_state,
+      </if>
+      <if test="uNum != null" >
+        u_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        #{bId,jdbcType=VARCHAR},
+      </if>
+      <if test="bDate != null" >
+        #{bDate,jdbcType=DATE},
+      </if>
+      <if test="bMaintainDate != null" >
+        #{bMaintainDate,jdbcType=DATE},
+      </if>
+      <if test="bMaintainWeek != null" >
+        #{bMaintainWeek,jdbcType=INTEGER},
+      </if>
+      <if test="bNum1 != null" >
+        #{bNum1,jdbcType=VARCHAR},
+      </if>
+      <if test="bName1 != null" >
+        #{bName1,jdbcType=VARCHAR},
+      </if>
+      <if test="bMaster1 != null" >
+        #{bMaster1,jdbcType=VARCHAR},
+      </if>
+      <if test="bNum2 != null" >
+        #{bNum2,jdbcType=VARCHAR},
+      </if>
+      <if test="bName2 != null" >
+        #{bName2,jdbcType=VARCHAR},
+      </if>
+      <if test="bNote != null" >
+        #{bNote,jdbcType=VARCHAR},
+      </if>
+      <if test="bType != null" >
+        #{bType,jdbcType=VARCHAR},
+      </if>
+      <if test="bCreateTime != null" >
+        #{bCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bState != null" >
+        #{bState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        #{uNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.XtBranches" >
+    update xt_branches
+    <set >
+      <if test="bDate != null" >
+        b_date = #{bDate,jdbcType=DATE},
+      </if>
+      <if test="bMaintainDate != null" >
+        b_maintain_date = #{bMaintainDate,jdbcType=DATE},
+      </if>
+      <if test="bMaintainWeek != null" >
+        b_maintain_week = #{bMaintainWeek,jdbcType=INTEGER},
+      </if>
+      <if test="bNum1 != null" >
+        b_num_1 = #{bNum1,jdbcType=VARCHAR},
+      </if>
+      <if test="bName1 != null" >
+        b_name_1 = #{bName1,jdbcType=VARCHAR},
+      </if>
+      <if test="bMaster1 != null" >
+        b_master_1 = #{bMaster1,jdbcType=VARCHAR},
+      </if>
+      <if test="bNum2 != null" >
+        b_num_2 = #{bNum2,jdbcType=VARCHAR},
+      </if>
+      <if test="bName2 != null" >
+        b_name_2 = #{bName2,jdbcType=VARCHAR},
+      </if>
+      <if test="bNote != null" >
+        b_note = #{bNote,jdbcType=VARCHAR},
+      </if>
+      <if test="bType != null" >
+        b_type = #{bType,jdbcType=VARCHAR},
+      </if>
+      <if test="bCreateTime != null" >
+        b_create_time = #{bCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bState != null" >
+        b_state = #{bState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        u_num = #{uNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where b_id = #{bId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.XtBranches" >
+    update xt_branches
+    set b_date = #{bDate,jdbcType=DATE},
+      b_maintain_date = #{bMaintainDate,jdbcType=DATE},
+      b_maintain_week = #{bMaintainWeek,jdbcType=INTEGER},
+      b_num_1 = #{bNum1,jdbcType=VARCHAR},
+      b_name_1 = #{bName1,jdbcType=VARCHAR},
+      b_master_1 = #{bMaster1,jdbcType=VARCHAR},
+      b_num_2 = #{bNum2,jdbcType=VARCHAR},
+      b_name_2 = #{bName2,jdbcType=VARCHAR},
+      b_note = #{bNote,jdbcType=VARCHAR},
+      b_type = #{bType,jdbcType=VARCHAR},
+      b_create_time = #{bCreateTime,jdbcType=TIMESTAMP},
+      b_state = #{bState,jdbcType=VARCHAR},
+      u_num = #{uNum,jdbcType=VARCHAR}
+    where b_id = #{bId,jdbcType=VARCHAR}
+  </update>
+</mapper>

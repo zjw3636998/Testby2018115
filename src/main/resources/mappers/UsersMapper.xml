@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.UsersMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.Users" >
+    <id column="u_num" property="uNum" jdbcType="VARCHAR" />
+    <result column="u_pass" property="uPass" jdbcType="VARCHAR" />
+    <result column="u_name" property="uName" jdbcType="VARCHAR" />
+    <result column="cs_id" property="csId" jdbcType="VARCHAR" />
+    <result column="u_job" property="uJob" jdbcType="VARCHAR" />
+    <result column="u_start_time" property="uStartTime" jdbcType="TIMESTAMP" />
+    <result column="r_id" property="rId" jdbcType="VARCHAR" />
+    <result column="u_mail" property="uMail" jdbcType="VARCHAR" />
+    <result column="u_state" property="uState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    u_num, u_pass, u_name, cs_id, u_job, u_start_time, r_id, u_mail, u_state
+  </sql>
+  <select id="queryFenye" resultMap="BaseResultMap">
+  	select * from users
+  	<if test="sort!=null and order!=null">
+  		order by ${sort} ${order}
+  	</if>
+  	<if test="start!=null and size!=null">
+  		limit ${start},#{size}
+  	</if>
+  </select>
+  <select id="getCount" resultType="int">
+  	select count(*) from users
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where u_num = #{uNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from users
+    where u_num = #{uNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.Users" >
+    insert into users (u_num, u_pass, u_name, 
+      cs_id, u_job, u_start_time, 
+      r_id, u_mail, u_state)
+    values (#{uNum,jdbcType=VARCHAR}, #{uPass,jdbcType=VARCHAR}, #{uName,jdbcType=VARCHAR}, 
+      #{csId,jdbcType=VARCHAR}, #{uJob,jdbcType=VARCHAR}, #{uStartTime,jdbcType=TIMESTAMP}, 
+      #{rId,jdbcType=VARCHAR}, #{uMail,jdbcType=VARCHAR}, #{uState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.Users" >
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uNum != null" >
+        u_num,
+      </if>
+      <if test="uPass != null" >
+        u_pass,
+      </if>
+      <if test="uName != null" >
+        u_name,
+      </if>
+      <if test="csId != null" >
+        cs_id,
+      </if>
+      <if test="uJob != null" >
+        u_job,
+      </if>
+      <if test="uStartTime != null" >
+        u_start_time,
+      </if>
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="uMail != null" >
+        u_mail,
+      </if>
+      <if test="uState != null" >
+        u_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uNum != null" >
+        #{uNum,jdbcType=VARCHAR},
+      </if>
+      <if test="uPass != null" >
+        #{uPass,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null" >
+        #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="csId != null" >
+        #{csId,jdbcType=VARCHAR},
+      </if>
+      <if test="uJob != null" >
+        #{uJob,jdbcType=VARCHAR},
+      </if>
+      <if test="uStartTime != null" >
+        #{uStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rId != null" >
+        #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="uMail != null" >
+        #{uMail,jdbcType=VARCHAR},
+      </if>
+      <if test="uState != null" >
+        #{uState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.Users" >
+    update users
+    <set >
+      <if test="uPass != null" >
+        u_pass = #{uPass,jdbcType=VARCHAR},
+      </if>
+      <if test="uName != null" >
+        u_name = #{uName,jdbcType=VARCHAR},
+      </if>
+      <if test="csId != null" >
+        cs_id = #{csId,jdbcType=VARCHAR},
+      </if>
+      <if test="uJob != null" >
+        u_job = #{uJob,jdbcType=VARCHAR},
+      </if>
+      <if test="uStartTime != null" >
+        u_start_time = #{uStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rId != null" >
+        r_id = #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="uMail != null" >
+        u_mail = #{uMail,jdbcType=VARCHAR},
+      </if>
+      <if test="uState != null" >
+        u_state = #{uState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where u_num = #{uNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.Users" >
+    update users
+    set u_pass = #{uPass,jdbcType=VARCHAR},
+      u_name = #{uName,jdbcType=VARCHAR},
+      cs_id = #{csId,jdbcType=VARCHAR},
+      u_job = #{uJob,jdbcType=VARCHAR},
+      u_start_time = #{uStartTime,jdbcType=TIMESTAMP},
+      r_id = #{rId,jdbcType=VARCHAR},
+      u_mail = #{uMail,jdbcType=VARCHAR},
+      u_state = #{uState,jdbcType=VARCHAR}
+    where u_num = #{uNum,jdbcType=VARCHAR}
+  </update>
+</mapper>

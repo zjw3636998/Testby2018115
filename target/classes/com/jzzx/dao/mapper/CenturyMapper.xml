@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzzx.dao.CenturyDao">
+	<resultMap type="com.jzzx.bean.CenturyPlan" id="centuryPlan">
+		<result column="id" property="id" javaType="int" jdbcType="BIGINT" />
+		<result column="planSource" property="planSource" javaType="int" jdbcType="INTEGER" />
+		<result column="name" property="name" javaType="string" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" javaType="string" jdbcType="VARCHAR" />
+		<result column="company" property="company" javaType="string" jdbcType="VARCHAR" />
+		<result column="submittime" property="submittime" javaType="string" jdbcType="VARCHAR" />
+		<result column="grade" property="grade" javaType="int" jdbcType="INTEGER" />
+		<result column="openid" property="openid" javaType="string" jdbcType="VARCHAR" />
+		<result column="orderid" property="orderid" javaType="string" jdbcType="VARCHAR" />
+		<result column="dealState" property="dealState" javaType="int" jdbcType="INTEGER" />
+		<result column="assignEmp" property="assignEmp" javaType="string" jdbcType="VARCHAR" />
+		<result column="assignTime" property="assignTime" javaType="string" jdbcType="VARCHAR" />
+		<result column="dealEmp" property="dealEmp" javaType="string" jdbcType="VARCHAR" />
+		<result column="remake" property="remake" javaType="string" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<select id="centuryCount" resultType="java.lang.Integer" statementType="PREPARED">
+		select count(*) from CenturyPlan where planSource=#{source} 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if> 
+	</select>
+	<select id="getPageCentury" resultMap="centuryPlan" statementType="PREPARED">
+		select * from CenturyPlan where planSource=#{source} 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if>
+		order by str_to_date(submittime,'%Y-%m-%d %H:%i:%s') desc limit #{fromIndex},#{pageSize}
+	</select>
+	<update id="insertDeal">
+		update CenturyPlan set assignEmp=#{assignEmp},assignTime=#{time},dealEmp=#{dealEmp} where id=#{cId}
+	</update>
+	<update id="updCenturyPlanPs">
+		update CenturyPlan set remake=#{content} where id=#{cId}
+	</update>
+	<update id="updDealMessage">
+		update CenturyPlan set dealEmp=#{empName},dealState=2 where id=#{c_id}
+	</update>
+	<delete id="delCentury">
+		delete from CenturyPlan where id=#{c_id}
+	</delete>
+	<select id="selRemake" resultType="string">
+		select remake from centuryPlan where id=#{c_id} 
+	</select>
+	<update id="addRemake">
+		update CenturyPlan set remake=#{content} where id=#{c_id}
+	</update>
+</mapper>

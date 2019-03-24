@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzzx.dao.SystemDao">
+	<resultMap type="com.jzzx.bean.UserTable" id="userTable">
+		<result column="u_id" property="u_id" javaType="int" jdbcType="INTEGER" />
+		<result column="u_account" property="u_account" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_password" property="u_password" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_name" property="u_name" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_phone" property="u_phone" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_headimg" property="u_headimg" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_createtime" property="u_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_newtime" property="u_newtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_createtime" property="u_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="u_cancel" property="u_cancel" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="checkLogin" resultMap="userTable">
+		select * from t_user where u_account=#{userName} and u_password=#{password}
+	</select>
+	<update id="addNewsLogin">
+		update t_user set u_newtime=#{dataFormat} where u_id=#{u_id}
+	</update>
+	<resultMap type="com.jzzx.bean.Permission" id="permission">
+		<result column="per_id" property="per_id" javaType="int" jdbcType="INTEGER" />
+		<result column="per_parent_id" property="per_parent_id" javaType="int" jdbcType="INTEGER" />
+		<result column="per_name" property="per_name" javaType="string" jdbcType="VARCHAR" />
+		<result column="per_url" property="per_url" javaType="string" jdbcType="VARCHAR" />
+		<result column="per_img" property="per_img" javaType="string" jdbcType="VARCHAR" />
+		<result column="per_descrpt" property="per_descrpt" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectPermission" resultMap="permission">
+		SELECT e.per_id,e.per_parent_id,e.per_name,e.per_url,e.per_img FROM t_user AS a 
+		LEFT JOIN t_user_role AS b ON a.u_id=b.user_id 
+		LEFT JOIN  t_role AS c ON b.role_id=c.role_id 
+		LEFT JOIN t_role_per AS d ON c.role_id=d.role_id 
+		LEFT JOIN Permission AS e ON d.per_id=e.per_id 
+		where a.u_id=#{u_id}
+	</select>
+	<resultMap type="com.jzzx.bean.RoleTable" id="roleTable">
+		<result column="role_id" property="role_id" javaType="int" jdbcType="INTEGER" />
+		<result column="role_name" property="role_name" javaType="string" jdbcType="VARCHAR" />
+		<result column="role_descript" property="role_descript" javaType="string" jdbcType="VARCHAR" />
+		<result column="role_createtime" property="role_createtime" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectRole" resultMap="roleTable">
+		select * from t_role
+	</select>
+	<select id="permissionByRole" resultMap="permission">
+		select c.per_id,c.per_name,c.per_descript,c.per_img FROM t_role as a 
+		LEFT JOIN t_role_per as b on a.role_id=b.role_id 
+		LEFT JOIN Permission as c on b.per_id=c.per_id 
+		where a.role_id=#{rid}	
+	</select>
+	<select id="queryAllNotPer" resultMap="permission">
+		select * from Permission where per_id not in (select c.per_id FROM t_role as a LEFT JOIN t_role_per as b on a.role_id=b.role_id 
+		LEFT JOIN Permission as c on b.per_id=c.per_id where a.role_id=#{rid});
+	</select>
+	<insert id="addPerByrole">
+		insert into t_role_per(role_id,per_id) values(#{roleId},#{perId})
+	</insert>
+	<delete id="deletePerByRole">
+		delete from t_role_per where role_id=#{roleId} and per_id=#{perId}
+	</delete>
+	<!-- 删除角色及对应权限 -->
+	<delete id="deleleRoleById">
+		delete from t_role where role_id=#{delRole_id}
+	</delete>
+	<delete id="deleteRole_perById">
+		delete from t_role_per  where role_id=#{delRole_id}
+	</delete>
+	<select id="searchAllPermisson" resultMap="permission">
+		select * from Permission
+	</select>
+	<!-- 添加角色 -->
+	<insert id="addRoles">
+		insert t_role(role_name,role_descript) values(#{roleName},#{roleDescript})
+	</insert>
+	<!-- 查询角色ID -->
+	<select id="searchRoleId" resultType="java.lang.Integer">
+		select role_id from t_role where role_name=#{roleName}
+	</select>
+	<!-- 个人中心 -->
+	<resultMap type="com.jzzx.bean.Employee" id="employee">
+		<result column="emp_id" property="emp_id" javaType="int" jdbcType="BIGINT" />
+		<result column="user_id" property="user_id" javaType="int" jdbcType="INTEGER" />
+		<result column="empName" property="empName" javaType="string" jdbcType="VARCHAR" />
+		<result column="entry_time" property="entry_time" javaType="string" jdbcType="LONGVARCHAR" />
+		<result column="regular_time" property="regular_time" javaType="string" jdbcType="VARCHAR" />
+		<result column="department" property="department" javaType="string" jdbcType="VARCHAR" />
+		<result column="education" property="education" javaType="string" jdbcType="VARCHAR" />
+		<result column="m_createtime" property="m_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="level" property="level" javaType="int" jdbcType="INTEGER" />
+		<result column="dimission" property="dimission" javaType="string" jdbcType="VARCHAR" />
+		<result column="upd_emp" property="upd_emp" javaType="string" jdbcType="VARCHAR" />
+		<result column="upd_time" property="upd_time" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selEmployeeById" resultMap="employee">
+		select * from t_employee where user_id=#{uid}
+	</select>
+	<update id="updEmployee">
+		update t_user set u_name=#{username},u_phone=#{phone} where u_id=#{uid}
+	</update>
+	<update id="updPassword">
+		update t_user set u_password=#{newp} where u_id=#{u_id}
+	</update>
+	<resultMap type="com.jzzx.bean.Visited" id="visited">
+		<result column="t_id" property="t_id" javaType="int" jdbcType="INTEGER" />
+		<result column="t_name" property="t_name" javaType="string" jdbcType="VARCHAR" />
+		<result column="t_count" property="t_count" javaType="int" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="selVisited" resultMap="visited">
+		select * from t_visited
+	</select>
+	<resultMap type="com.jzzx.bean.XcxAccess" id="xcxAccess">
+		<result column="access_id" property="access_id" javaType="int" jdbcType="INTEGER" />
+		<result column="access_name" property="access_name" javaType="string" jdbcType="VARCHAR" />
+		<result column="access_time" property="access_time" javaType="int" jdbcType="INTEGER" />
+		<result column="access_remake" property="access_remake" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selXcxAccess" resultMap="xcxAccess">
+		select * from AccessTable where access_id &lt;= 4
+	</select>
+	<select id="selOrderCount" resultType="java.lang.Integer">
+			select count(*) from OrderTable
+	</select>
+	<select id="selOrderPayCount" resultType="java.lang.Integer">
+		SELECT SUM(order_pay) FROM OrderTable;
+	</select>
+	<select id="selOrderDeal" resultType="java.lang.Integer">
+			select count(*) from OrderTable where order_deal="" or order_deal is null
+	</select>
+	<select id="selReview" resultType="java.lang.Integer">
+		select count(*) from OrderTable where order_type=2 and order_state=2
+	</select>
+</mapper>

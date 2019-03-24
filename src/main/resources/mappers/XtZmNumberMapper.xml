@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.XtZmNumberMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.XtZmNumber" >
+    <id column="zm_id" property="zmId" jdbcType="VARCHAR" />
+    <result column="zm_apply_date" property="zmApplyDate" jdbcType="DATE" />
+    <result column="zm_apply_cs" property="zmApplyCs" jdbcType="VARCHAR" />
+    <result column="zm_apply_master" property="zmApplyMaster" jdbcType="VARCHAR" />
+    <result column="zm_number" property="zmNumber" jdbcType="VARCHAR" />
+    <result column="zm_on_job" property="zmOnJob" jdbcType="VARCHAR" />
+    <result column="zm_service_master" property="zmServiceMaster" jdbcType="VARCHAR" />
+    <result column="zm_service_date" property="zmServiceDate" jdbcType="DATE" />
+    <result column="zm_service_week" property="zmServiceWeek" jdbcType="INTEGER" />
+    <result column="zm_note" property="zmNote" jdbcType="VARCHAR" />
+    <result column="zm_type" property="zmType" jdbcType="VARCHAR" />
+    <result column="zm_create_time" property="zmCreateTime" jdbcType="TIMESTAMP" />
+    <result column="zm_state" property="zmState" jdbcType="VARCHAR" />
+    <result column="u_num" property="uNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    zm_id, zm_apply_date, zm_apply_cs, zm_apply_master, zm_number, zm_on_job, zm_service_master, 
+    zm_service_date, zm_service_week, zm_note, zm_type, zm_create_time, zm_state, u_num
+  </sql>
+  <select id="timeComparison" resultType="int">
+  	select count(*) 
+  	from xt_zm_number
+  	where zm_state = '有效' and zm_service_date > zm_apply_date and zm_service_date between #{start} and #{end}
+  </select>
+  <select id="countFromMonth" resultType="int">
+  	select count(*) 
+  	from xt_zm_number
+  	where zm_state = '有效' and zm_service_date between #{start} and #{end}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xt_zm_number
+    where zm_id = #{zmId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xt_zm_number
+    where zm_id = #{zmId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.XtZmNumber" >
+    insert into xt_zm_number (zm_id, zm_apply_date, zm_apply_cs, 
+      zm_apply_master, zm_number, zm_on_job, 
+      zm_service_master, zm_service_date, zm_service_week, 
+      zm_note, zm_type, zm_create_time, 
+      zm_state, u_num)
+    values (#{zmId,jdbcType=VARCHAR}, #{zmApplyDate,jdbcType=DATE}, #{zmApplyCs,jdbcType=VARCHAR}, 
+      #{zmApplyMaster,jdbcType=VARCHAR}, #{zmNumber,jdbcType=VARCHAR}, #{zmOnJob,jdbcType=VARCHAR}, 
+      #{zmServiceMaster,jdbcType=VARCHAR}, #{zmServiceDate,jdbcType=DATE}, #{zmServiceWeek,jdbcType=INTEGER}, 
+      #{zmNote,jdbcType=VARCHAR}, #{zmType,jdbcType=VARCHAR}, #{zmCreateTime,jdbcType=TIMESTAMP}, 
+      #{zmState,jdbcType=VARCHAR}, #{uNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.XtZmNumber" >
+    insert into xt_zm_number
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="zmId != null" >
+        zm_id,
+      </if>
+      <if test="zmApplyDate != null" >
+        zm_apply_date,
+      </if>
+      <if test="zmApplyCs != null" >
+        zm_apply_cs,
+      </if>
+      <if test="zmApplyMaster != null" >
+        zm_apply_master,
+      </if>
+      <if test="zmNumber != null" >
+        zm_number,
+      </if>
+      <if test="zmOnJob != null" >
+        zm_on_job,
+      </if>
+      <if test="zmServiceMaster != null" >
+        zm_service_master,
+      </if>
+      <if test="zmServiceDate != null" >
+        zm_service_date,
+      </if>
+      <if test="zmServiceWeek != null" >
+        zm_service_week,
+      </if>
+      <if test="zmNote != null" >
+        zm_note,
+      </if>
+      <if test="zmType != null" >
+        zm_type,
+      </if>
+      <if test="zmCreateTime != null" >
+        zm_create_time,
+      </if>
+      <if test="zmState != null" >
+        zm_state,
+      </if>
+      <if test="uNum != null" >
+        u_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="zmId != null" >
+        #{zmId,jdbcType=VARCHAR},
+      </if>
+      <if test="zmApplyDate != null" >
+        #{zmApplyDate,jdbcType=DATE},
+      </if>
+      <if test="zmApplyCs != null" >
+        #{zmApplyCs,jdbcType=VARCHAR},
+      </if>
+      <if test="zmApplyMaster != null" >
+        #{zmApplyMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="zmNumber != null" >
+        #{zmNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="zmOnJob != null" >
+        #{zmOnJob,jdbcType=VARCHAR},
+      </if>
+      <if test="zmServiceMaster != null" >
+        #{zmServiceMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="zmServiceDate != null" >
+        #{zmServiceDate,jdbcType=DATE},
+      </if>
+      <if test="zmServiceWeek != null" >
+        #{zmServiceWeek,jdbcType=INTEGER},
+      </if>
+      <if test="zmNote != null" >
+        #{zmNote,jdbcType=VARCHAR},
+      </if>
+      <if test="zmType != null" >
+        #{zmType,jdbcType=VARCHAR},
+      </if>
+      <if test="zmCreateTime != null" >
+        #{zmCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zmState != null" >
+        #{zmState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        #{uNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.XtZmNumber" >
+    update xt_zm_number
+    <set >
+      <if test="zmApplyDate != null" >
+        zm_apply_date = #{zmApplyDate,jdbcType=DATE},
+      </if>
+      <if test="zmApplyCs != null" >
+        zm_apply_cs = #{zmApplyCs,jdbcType=VARCHAR},
+      </if>
+      <if test="zmApplyMaster != null" >
+        zm_apply_master = #{zmApplyMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="zmNumber != null" >
+        zm_number = #{zmNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="zmOnJob != null" >
+        zm_on_job = #{zmOnJob,jdbcType=VARCHAR},
+      </if>
+      <if test="zmServiceMaster != null" >
+        zm_service_master = #{zmServiceMaster,jdbcType=VARCHAR},
+      </if>
+      <if test="zmServiceDate != null" >
+        zm_service_date = #{zmServiceDate,jdbcType=DATE},
+      </if>
+      <if test="zmServiceWeek != null" >
+        zm_service_week = #{zmServiceWeek,jdbcType=INTEGER},
+      </if>
+      <if test="zmNote != null" >
+        zm_note = #{zmNote,jdbcType=VARCHAR},
+      </if>
+      <if test="zmType != null" >
+        zm_type = #{zmType,jdbcType=VARCHAR},
+      </if>
+      <if test="zmCreateTime != null" >
+        zm_create_time = #{zmCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zmState != null" >
+        zm_state = #{zmState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        u_num = #{uNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where zm_id = #{zmId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.XtZmNumber" >
+    update xt_zm_number
+    set zm_apply_date = #{zmApplyDate,jdbcType=DATE},
+      zm_apply_cs = #{zmApplyCs,jdbcType=VARCHAR},
+      zm_apply_master = #{zmApplyMaster,jdbcType=VARCHAR},
+      zm_number = #{zmNumber,jdbcType=VARCHAR},
+      zm_on_job = #{zmOnJob,jdbcType=VARCHAR},
+      zm_service_master = #{zmServiceMaster,jdbcType=VARCHAR},
+      zm_service_date = #{zmServiceDate,jdbcType=DATE},
+      zm_service_week = #{zmServiceWeek,jdbcType=INTEGER},
+      zm_note = #{zmNote,jdbcType=VARCHAR},
+      zm_type = #{zmType,jdbcType=VARCHAR},
+      zm_create_time = #{zmCreateTime,jdbcType=TIMESTAMP},
+      zm_state = #{zmState,jdbcType=VARCHAR},
+      u_num = #{uNum,jdbcType=VARCHAR}
+    where zm_id = #{zmId,jdbcType=VARCHAR}
+  </update>
+</mapper>

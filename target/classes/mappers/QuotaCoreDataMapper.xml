@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.QuotaCoreDataMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.QuotaCoreData" >
+    <id column="d_id" property="dId" jdbcType="VARCHAR" />
+    <result column="i_id" property="iId" jdbcType="VARCHAR" />
+    <result column="d_1" property="d1" jdbcType="DOUBLE" />
+    <result column="d_2" property="d2" jdbcType="DOUBLE" />
+    <result column="d_3" property="d3" jdbcType="DOUBLE" />
+    <result column="d_4" property="d4" jdbcType="DOUBLE" />
+    <result column="d_5" property="d5" jdbcType="DOUBLE" />
+    <result column="d_6" property="d6" jdbcType="DOUBLE" />
+    <result column="d_7" property="d7" jdbcType="DOUBLE" />
+    <result column="d_8" property="d8" jdbcType="DOUBLE" />
+    <result column="d_9" property="d9" jdbcType="DOUBLE" />
+    <result column="d_10" property="d10" jdbcType="DOUBLE" />
+    <result column="d_11" property="d11" jdbcType="DOUBLE" />
+    <result column="d_12" property="d12" jdbcType="DOUBLE" />
+    <result column="d_note" property="dNote" jdbcType="VARCHAR" />
+    <result column="d_state" property="dState" jdbcType="VARCHAR" />
+	<association column="i_id" property="coreInfo" select="com.zs.dao.QuotaCoreInfoMapper.selectByPrimaryKey"/>		    	
+  </resultMap>
+  <select id="queryFromYear" resultMap="BaseResultMap">
+  	select * from quota_core_data
+  	where i_id in
+  	(
+  		select i_id from quota_core_info
+  		<where>
+  			<if test="year!=null">
+		  		and i_year=#{year}
+  			</if>
+  		</where>
+  	)
+  	<if test="sort!=null and order!=null">
+  		order by ${sort} ${order}
+  	</if>
+  	<if test="start!=null and size!=null">
+  		limit #{start},#{size}
+  	</if>
+  </select>
+  <select id="getCount" resultType="int">
+  	select count(*) from quota_core_info
+  </select>
+  <sql id="Base_Column_List" >
+    d_id, i_id, d_1, d_2, d_3, d_4, d_5, d_6, d_7, d_8, d_9, d_10, d_11, d_12, d_note, 
+    d_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from quota_core_data
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from quota_core_data
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.QuotaCoreData" >
+    insert into quota_core_data (d_id, i_id, d_1, 
+      d_2, d_3, d_4, d_5, 
+      d_6, d_7, d_8, d_9, 
+      d_10, d_11, d_12, d_note, 
+      d_state)
+    values (#{dId,jdbcType=VARCHAR}, #{iId,jdbcType=VARCHAR}, #{d1,jdbcType=DOUBLE}, 
+      #{d2,jdbcType=DOUBLE}, #{d3,jdbcType=DOUBLE}, #{d4,jdbcType=DOUBLE}, #{d5,jdbcType=DOUBLE}, 
+      #{d6,jdbcType=DOUBLE}, #{d7,jdbcType=DOUBLE}, #{d8,jdbcType=DOUBLE}, #{d9,jdbcType=DOUBLE}, 
+      #{d10,jdbcType=DOUBLE}, #{d11,jdbcType=DOUBLE}, #{d12,jdbcType=DOUBLE}, #{dNote,jdbcType=VARCHAR}, 
+      #{dState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.QuotaCoreData" >
+    insert into quota_core_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="iId != null" >
+        i_id,
+      </if>
+      <if test="d1 != null" >
+        d_1,
+      </if>
+      <if test="d2 != null" >
+        d_2,
+      </if>
+      <if test="d3 != null" >
+        d_3,
+      </if>
+      <if test="d4 != null" >
+        d_4,
+      </if>
+      <if test="d5 != null" >
+        d_5,
+      </if>
+      <if test="d6 != null" >
+        d_6,
+      </if>
+      <if test="d7 != null" >
+        d_7,
+      </if>
+      <if test="d8 != null" >
+        d_8,
+      </if>
+      <if test="d9 != null" >
+        d_9,
+      </if>
+      <if test="d10 != null" >
+        d_10,
+      </if>
+      <if test="d11 != null" >
+        d_11,
+      </if>
+      <if test="d12 != null" >
+        d_12,
+      </if>
+      <if test="dNote != null" >
+        d_note,
+      </if>
+      <if test="dState != null" >
+        d_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="iId != null" >
+        #{iId,jdbcType=VARCHAR},
+      </if>
+      <if test="d1 != null" >
+        #{d1,jdbcType=DOUBLE},
+      </if>
+      <if test="d2 != null" >
+        #{d2,jdbcType=DOUBLE},
+      </if>
+      <if test="d3 != null" >
+        #{d3,jdbcType=DOUBLE},
+      </if>
+      <if test="d4 != null" >
+        #{d4,jdbcType=DOUBLE},
+      </if>
+      <if test="d5 != null" >
+        #{d5,jdbcType=DOUBLE},
+      </if>
+      <if test="d6 != null" >
+        #{d6,jdbcType=DOUBLE},
+      </if>
+      <if test="d7 != null" >
+        #{d7,jdbcType=DOUBLE},
+      </if>
+      <if test="d8 != null" >
+        #{d8,jdbcType=DOUBLE},
+      </if>
+      <if test="d9 != null" >
+        #{d9,jdbcType=DOUBLE},
+      </if>
+      <if test="d10 != null" >
+        #{d10,jdbcType=DOUBLE},
+      </if>
+      <if test="d11 != null" >
+        #{d11,jdbcType=DOUBLE},
+      </if>
+      <if test="d12 != null" >
+        #{d12,jdbcType=DOUBLE},
+      </if>
+      <if test="dNote != null" >
+        #{dNote,jdbcType=VARCHAR},
+      </if>
+      <if test="dState != null" >
+        #{dState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.QuotaCoreData" >
+    update quota_core_data
+    <set >
+      <if test="iId != null" >
+        i_id = #{iId,jdbcType=VARCHAR},
+      </if>
+      <if test="d1 != null" >
+        d_1 = #{d1,jdbcType=DOUBLE},
+      </if>
+      <if test="d2 != null" >
+        d_2 = #{d2,jdbcType=DOUBLE},
+      </if>
+      <if test="d3 != null" >
+        d_3 = #{d3,jdbcType=DOUBLE},
+      </if>
+      <if test="d4 != null" >
+        d_4 = #{d4,jdbcType=DOUBLE},
+      </if>
+      <if test="d5 != null" >
+        d_5 = #{d5,jdbcType=DOUBLE},
+      </if>
+      <if test="d6 != null" >
+        d_6 = #{d6,jdbcType=DOUBLE},
+      </if>
+      <if test="d7 != null" >
+        d_7 = #{d7,jdbcType=DOUBLE},
+      </if>
+      <if test="d8 != null" >
+        d_8 = #{d8,jdbcType=DOUBLE},
+      </if>
+      <if test="d9 != null" >
+        d_9 = #{d9,jdbcType=DOUBLE},
+      </if>
+      <if test="d10 != null" >
+        d_10 = #{d10,jdbcType=DOUBLE},
+      </if>
+      <if test="d11 != null" >
+        d_11 = #{d11,jdbcType=DOUBLE},
+      </if>
+      <if test="d12 != null" >
+        d_12 = #{d12,jdbcType=DOUBLE},
+      </if>
+      <if test="dNote != null" >
+        d_note = #{dNote,jdbcType=VARCHAR},
+      </if>
+      <if test="dState != null" >
+        d_state = #{dState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.QuotaCoreData" >
+    update quota_core_data
+    set i_id = #{iId,jdbcType=VARCHAR},
+      d_1 = #{d1,jdbcType=DOUBLE},
+      d_2 = #{d2,jdbcType=DOUBLE},
+      d_3 = #{d3,jdbcType=DOUBLE},
+      d_4 = #{d4,jdbcType=DOUBLE},
+      d_5 = #{d5,jdbcType=DOUBLE},
+      d_6 = #{d6,jdbcType=DOUBLE},
+      d_7 = #{d7,jdbcType=DOUBLE},
+      d_8 = #{d8,jdbcType=DOUBLE},
+      d_9 = #{d9,jdbcType=DOUBLE},
+      d_10 = #{d10,jdbcType=DOUBLE},
+      d_11 = #{d11,jdbcType=DOUBLE},
+      d_12 = #{d12,jdbcType=DOUBLE},
+      d_note = #{dNote,jdbcType=VARCHAR},
+      d_state = #{dState,jdbcType=VARCHAR}
+    where d_id = #{dId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByidFromMonth">
+  	update quota_core_data
+  	set d_${i}=#{value}
+  	where d_id=#{dId}
+  </update>
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jzzx.dao.WechatUserDao">
+	<resultMap type="com.jzzx.bean.WeChatUser" id="weChatUser">
+		<result column="id" property="id" javaType="int" jdbcType="BIGINT" />
+		<result column="nickname" property="nickname" javaType="string" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" javaType="int" jdbcType="INTEGER" />
+		<result column="country" property="country" javaType="string" jdbcType="VARCHAR" />
+		<result column="province" property="province" javaType="string" jdbcType="VARCHAR" />
+		<result column="city" property="city" javaType="string" jdbcType="VARCHAR" />
+		<result column="headimgurl" property="headimgurl" javaType="string" jdbcType="VARCHAR"/>
+		<result column="phone" property="phone" javaType="string" jdbcType="VARCHAR" />
+		<result column="company" property="company" javaType="string" jdbcType="VARCHAR" />
+		<result column="logintime" property="logintime" javaType="string" jdbcType="VARCHAR" />
+		<result column="leavel" property="leavel" javaType="int" jdbcType="INTEGER" />
+		<result column="openid" property="openid" javaType="string" jdbcType="VARCHAR" />
+		<result column="ps" property="ps" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="weChatCount" resultType="java.lang.Integer" statementType="PREPARED">
+		select count(*) from WeChatUser where 1=1 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if> 
+	</select>
+	<select id="getPageWeChatUser" resultMap="weChatUser" statementType="PREPARED">
+		select * from WeChatUser where 1=1 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if>
+		order by str_to_date(logintime,'%Y-%m-%d %H:%i:%s') desc limit #{fromIndex},#{pageSize}
+	</select>
+	<update id="addWechatPs">
+		update WeChatUser set ps=#{psContent} where id=#{wId}
+	</update>
+	<resultMap type="com.jzzx.bean.SuggestionTable" id="suggestion">
+		<result column="st_id" property="st_id" javaType="int" jdbcType="INTEGER" />
+		<result column="st_content" property="st_content" javaType="string" jdbcType="VARCHAR" />
+		<result column="st_openid" property="st_openid" javaType="string" jdbcType="VARCHAR" />
+		<result column="st_time" property="st_time" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectSuggestion" resultType="java.lang.Integer">
+		select count(*) from Suggestion where 1=1 
+		<if test="openid!=null and openid!=''">
+			and st_openid LIKE "%"#{openid}"%" 
+		</if>
+	</select>
+	<select id="getPageSuggestion" resultMap="suggestion">
+		select * from Suggestion where 1=1 
+		<if test="openid!=null and openid!=''">
+			and st_openid LIKE "%"#{openid}"%" 
+		</if>
+	</select>
+	<delete id="delSuggestion">
+		delete from Suggestion where st_id=#{st_id}
+	</delete>
+	<resultMap type="com.jzzx.bean.OrderTable" id="orderTable">
+		<result column="order_id" property="order_id" javaType="int" jdbcType="BIGINT" />
+		<result column="order_type" property="order_type" javaType="int" jdbcType="INTEGER" />
+		<result column="order_content" property="order_content" javaType="string" jdbcType="LONGVARCHAR"/>
+		<result column="openid" property="openid" javaType="string" jdbcType="VARCHAR" />
+		<result column="out_trade_no" property="out_trade_no" javaType="string" jdbcType="VARCHAR" />
+		<result column="order_createtime" property="order_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="order_pay" property="order_pay" javaType="int" jdbcType="INTEGER" />
+		<result column="order_state" property="order_state" javaType="int" jdbcType="INTEGER" />
+		<result column="order_deal" property="order_deal" javaType="string" jdbcType="VARCHAR" />
+		<result column="order_ps" property="order_ps" javaType="string" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="YyzxCount" resultType="java.lang.Integer" statementType="PREPARED">
+		select count(*) from OrderTable where order_type=#{orderType} 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if> 
+	</select>
+	<select id="getPageYyzx" resultMap="orderTable" statementType="PREPARED">
+		select * from OrderTable where order_type=#{orderType} 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if>
+		order by str_to_date(order_createtime,'%Y-%m-%d %H:%i:%s') desc limit #{fromIndex},#{pageSize}
+	</select>
+	<update id="updConsult">
+		update OrderTable set order_deal=#{empName},order_state=2 where order_id=#{c_id}
+	</update>
+	<resultMap type="com.jzzx.bean.OfflinePay" id="offlinePay">
+		<result column="op_id" property="op_id" javaType="int" jdbcType="BIGINT" />
+		<result column="op_name" property="op_name" javaType="string" jdbcType="VARCHAR"/>
+		<result column="op_phone" property="op_phone" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_type" property="op_type" javaType="int" jdbcType="INTEGER" />
+		<result column="op_createtime" property="op_createtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_dealState" property="op_dealState" javaType="int" jdbcType="INTEGER" />
+		<result column="op_deal" property="op_deal" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_dealtime" property="op_dealtime" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_resp" property="op_resp" javaType="string" jdbcType="VARCHAR" />
+		<result column="op_ps" property="op_ps" javaType="string" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<select id="XxzxCount" resultType="java.lang.Integer" statementType="PREPARED">
+		select count(*) from OfflinePay where 1=1 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if> 
+	</select>
+	<select id="getPageXxzx" resultMap="offlinePay" statementType="PREPARED">
+		select * from OfflinePay where 1=1 
+		<if test="searchType!=null and searchType!='' and searchContent!=null and searchContent!=''">
+			and ${searchType} LIKE "%"#{searchContent}"%" 
+		</if>
+		order by str_to_date(op_createtime,'%Y-%m-%d %H:%i:%s') desc limit #{fromIndex},#{pageSize}
+	</select>
+	<update id="updXxzx">
+		update OfflinePay set op_deal=#{empName},op_dealState=2 where op_id=#{c_id}
+	</update>
+</mapper>

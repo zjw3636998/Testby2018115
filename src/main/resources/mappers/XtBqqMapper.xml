@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.XtBqqMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.XtBqq" >
+    <id column="b_id" property="bId" jdbcType="VARCHAR" />
+    <result column="b_num" property="bNum" jdbcType="VARCHAR" />
+    <result column="b_name" property="bName" jdbcType="VARCHAR" />
+    <result column="b_net_number" property="bNetNumber" jdbcType="VARCHAR" />
+    <result column="b_net_name" property="bNetName" jdbcType="VARCHAR" />
+    <result column="b_man" property="bMan" jdbcType="VARCHAR" />
+    <result column="b_section" property="bSection" jdbcType="VARCHAR" />
+    <result column="b_register_date" property="bRegisterDate" jdbcType="DATE" />
+    <result column="b_it" property="bIt" jdbcType="VARCHAR" />
+    <result column="b_service_date" property="bServiceDate" jdbcType="TIMESTAMP" />
+    <result column="b_type" property="bType" jdbcType="VARCHAR" />
+    <result column="b_state" property="bState" jdbcType="VARCHAR" />
+    <result column="u_num" property="uNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    b_id, b_num, b_name, b_net_number, b_net_name, b_man, b_section, b_register_date, 
+    b_it, b_service_date, b_type, b_state, u_num
+  </sql>
+  <select id="timeComparison" resultType="int">
+  	select count(*) 
+  	from xt_bqq
+  	where  b_service_date > b_register_date and b_state = '有效' and b_register_date between #{start} and #{end}
+  </select>
+  <select id="countFromMonth" resultType="int">
+  	select count(*) 
+  	from xt_bqq
+  	where b_state = '有效' and b_register_date between #{start} and #{end}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from xt_bqq
+    where b_id = #{bId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from xt_bqq
+    where b_id = #{bId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.XtBqq" >
+    insert into xt_bqq (b_id, b_num, b_name, 
+      b_net_number, b_net_name, b_man, 
+      b_section, b_register_date, b_it, 
+      b_service_date, b_type, b_state, 
+      u_num)
+    values (#{bId,jdbcType=VARCHAR}, #{bNum,jdbcType=VARCHAR}, #{bName,jdbcType=VARCHAR}, 
+      #{bNetNumber,jdbcType=VARCHAR}, #{bNetName,jdbcType=VARCHAR}, #{bMan,jdbcType=VARCHAR}, 
+      #{bSection,jdbcType=VARCHAR}, #{bRegisterDate,jdbcType=DATE}, #{bIt,jdbcType=VARCHAR}, 
+      #{bServiceDate,jdbcType=TIMESTAMP}, #{bType,jdbcType=VARCHAR}, #{bState,jdbcType=VARCHAR}, 
+      #{uNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.XtBqq" >
+    insert into xt_bqq
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="bNum != null" >
+        b_num,
+      </if>
+      <if test="bName != null" >
+        b_name,
+      </if>
+      <if test="bNetNumber != null" >
+        b_net_number,
+      </if>
+      <if test="bNetName != null" >
+        b_net_name,
+      </if>
+      <if test="bMan != null" >
+        b_man,
+      </if>
+      <if test="bSection != null" >
+        b_section,
+      </if>
+      <if test="bRegisterDate != null" >
+        b_register_date,
+      </if>
+      <if test="bIt != null" >
+        b_it,
+      </if>
+      <if test="bServiceDate != null" >
+        b_service_date,
+      </if>
+      <if test="bType != null" >
+        b_type,
+      </if>
+      <if test="bState != null" >
+        b_state,
+      </if>
+      <if test="uNum != null" >
+        u_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        #{bId,jdbcType=VARCHAR},
+      </if>
+      <if test="bNum != null" >
+        #{bNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bName != null" >
+        #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bNetNumber != null" >
+        #{bNetNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bNetName != null" >
+        #{bNetName,jdbcType=VARCHAR},
+      </if>
+      <if test="bMan != null" >
+        #{bMan,jdbcType=VARCHAR},
+      </if>
+      <if test="bSection != null" >
+        #{bSection,jdbcType=VARCHAR},
+      </if>
+      <if test="bRegisterDate != null" >
+        #{bRegisterDate,jdbcType=DATE},
+      </if>
+      <if test="bIt != null" >
+        #{bIt,jdbcType=VARCHAR},
+      </if>
+      <if test="bServiceDate != null" >
+        #{bServiceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bType != null" >
+        #{bType,jdbcType=VARCHAR},
+      </if>
+      <if test="bState != null" >
+        #{bState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        #{uNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.XtBqq" >
+    update xt_bqq
+    <set >
+      <if test="bNum != null" >
+        b_num = #{bNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bName != null" >
+        b_name = #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bNetNumber != null" >
+        b_net_number = #{bNetNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bNetName != null" >
+        b_net_name = #{bNetName,jdbcType=VARCHAR},
+      </if>
+      <if test="bMan != null" >
+        b_man = #{bMan,jdbcType=VARCHAR},
+      </if>
+      <if test="bSection != null" >
+        b_section = #{bSection,jdbcType=VARCHAR},
+      </if>
+      <if test="bRegisterDate != null" >
+        b_register_date = #{bRegisterDate,jdbcType=DATE},
+      </if>
+      <if test="bIt != null" >
+        b_it = #{bIt,jdbcType=VARCHAR},
+      </if>
+      <if test="bServiceDate != null" >
+        b_service_date = #{bServiceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bType != null" >
+        b_type = #{bType,jdbcType=VARCHAR},
+      </if>
+      <if test="bState != null" >
+        b_state = #{bState,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        u_num = #{uNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where b_id = #{bId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.XtBqq" >
+    update xt_bqq
+    set b_num = #{bNum,jdbcType=VARCHAR},
+      b_name = #{bName,jdbcType=VARCHAR},
+      b_net_number = #{bNetNumber,jdbcType=VARCHAR},
+      b_net_name = #{bNetName,jdbcType=VARCHAR},
+      b_man = #{bMan,jdbcType=VARCHAR},
+      b_section = #{bSection,jdbcType=VARCHAR},
+      b_register_date = #{bRegisterDate,jdbcType=DATE},
+      b_it = #{bIt,jdbcType=VARCHAR},
+      b_service_date = #{bServiceDate,jdbcType=TIMESTAMP},
+      b_type = #{bType,jdbcType=VARCHAR},
+      b_state = #{bState,jdbcType=VARCHAR},
+      u_num = #{uNum,jdbcType=VARCHAR}
+    where b_id = #{bId,jdbcType=VARCHAR}
+  </update>
+</mapper>

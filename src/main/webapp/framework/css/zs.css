@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+/*
+这个是窗口的属性样式
+*/
+.ftitle{
+
+}
+.fitem{
+	line-height:25px; 
+}
+.fitem label{
+	display: inline-block;
+	width: 100px;
+}
+.fitem input{
+	width: 200px;
+}

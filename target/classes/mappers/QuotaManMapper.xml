@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zs.dao.QuotaManMapper" >
+  <resultMap id="BaseResultMap" type="com.zs.entity.QuotaMan" >
+    <id column="qm_id" property="qmId" jdbcType="VARCHAR" />
+    <result column="u_num" property="uNum" jdbcType="VARCHAR" />
+    <result column="qm_type_zc" property="qmTypeZc" jdbcType="INTEGER" />
+    <result column="qm_type_wh" property="qmTypeWh" jdbcType="INTEGER" />
+    <result column="qm_type_zx" property="qmTypeZx" jdbcType="INTEGER" />
+    <result column="qm_date" property="qmDate" jdbcType="DATE" />
+    <result column="qm_table" property="qmTable" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    qm_id, u_num, qm_type_zc, qm_type_wh, qm_type_zx, qm_date, qm_table
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from quota_man
+    where qm_id = #{qmId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from quota_man
+    where qm_id = #{qmId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zs.entity.QuotaMan" >
+    insert into quota_man (qm_id, u_num, qm_type_zc, 
+      qm_type_wh, qm_type_zx, qm_date, 
+      qm_table)
+    values (#{qmId,jdbcType=VARCHAR}, #{uNum,jdbcType=VARCHAR}, #{qmTypeZc,jdbcType=INTEGER}, 
+      #{qmTypeWh,jdbcType=INTEGER}, #{qmTypeZx,jdbcType=INTEGER}, #{qmDate,jdbcType=DATE}, 
+      #{qmTable,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zs.entity.QuotaMan" >
+    insert into quota_man
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qmId != null" >
+        qm_id,
+      </if>
+      <if test="uNum != null" >
+        u_num,
+      </if>
+      <if test="qmTypeZc != null" >
+        qm_type_zc,
+      </if>
+      <if test="qmTypeWh != null" >
+        qm_type_wh,
+      </if>
+      <if test="qmTypeZx != null" >
+        qm_type_zx,
+      </if>
+      <if test="qmDate != null" >
+        qm_date,
+      </if>
+      <if test="qmTable != null" >
+        qm_table,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qmId != null" >
+        #{qmId,jdbcType=VARCHAR},
+      </if>
+      <if test="uNum != null" >
+        #{uNum,jdbcType=VARCHAR},
+      </if>
+      <if test="qmTypeZc != null" >
+        #{qmTypeZc,jdbcType=INTEGER},
+      </if>
+      <if test="qmTypeWh != null" >
+        #{qmTypeWh,jdbcType=INTEGER},
+      </if>
+      <if test="qmTypeZx != null" >
+        #{qmTypeZx,jdbcType=INTEGER},
+      </if>
+      <if test="qmDate != null" >
+        #{qmDate,jdbcType=DATE},
+      </if>
+      <if test="qmTable != null" >
+        #{qmTable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zs.entity.QuotaMan" >
+    update quota_man
+    <set >
+      <if test="uNum != null" >
+        u_num = #{uNum,jdbcType=VARCHAR},
+      </if>
+      <if test="qmTypeZc != null" >
+        qm_type_zc = #{qmTypeZc,jdbcType=INTEGER},
+      </if>
+      <if test="qmTypeWh != null" >
+        qm_type_wh = #{qmTypeWh,jdbcType=INTEGER},
+      </if>
+      <if test="qmTypeZx != null" >
+        qm_type_zx = #{qmTypeZx,jdbcType=INTEGER},
+      </if>
+      <if test="qmDate != null" >
+        qm_date = #{qmDate,jdbcType=DATE},
+      </if>
+      <if test="qmTable != null" >
+        qm_table = #{qmTable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where qm_id = #{qmId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zs.entity.QuotaMan" >
+    update quota_man
+    set u_num = #{uNum,jdbcType=VARCHAR},
+      qm_type_zc = #{qmTypeZc,jdbcType=INTEGER},
+      qm_type_wh = #{qmTypeWh,jdbcType=INTEGER},
+      qm_type_zx = #{qmTypeZx,jdbcType=INTEGER},
+      qm_date = #{qmDate,jdbcType=DATE},
+      qm_table = #{qmTable,jdbcType=VARCHAR}
+    where qm_id = #{qmId,jdbcType=VARCHAR}
+  </update>
+</mapper>
